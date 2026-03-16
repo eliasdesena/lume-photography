@@ -8,12 +8,14 @@ import FAQ from "@/components/sections/FAQ";
 import Footer from "@/components/sections/Footer";
 import StickyNav from "@/components/sections/StickyNav";
 import EmailCapture from "@/components/sections/EmailCapture";
+import MobileStickyFooter from "@/components/sections/MobileStickyFooter";
 
 export default function Home() {
   return (
     <main>
       <StickyNav />
       <EmailCapture />
+      <MobileStickyFooter />
       <Hero />
       <SocialProofMarquee />
       <Transformation />

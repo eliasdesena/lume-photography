@@ -6,6 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { modules } from "@/data/modules";
 import { fadeUp, staggerContainer, accordionContent, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/SectionLabel";
+import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 export default function Modules() {
@@ -98,6 +99,13 @@ export default function Modules() {
               </div>
             );
           })}
+        </motion.div>
+
+        <motion.div variants={fadeUp} className="mt-14 sm:mt-16 text-center">
+          <p className="font-display text-xl sm:text-2xl text-cream/80 mb-6">
+            Ready to master every module?
+          </p>
+          <Button href="/checkout">Enroll now — $97 →</Button>
         </motion.div>
       </motion.div>
     </section>

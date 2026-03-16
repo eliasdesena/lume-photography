@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ResponsiveBeforeAfterImage from "@/components/ui/ResponsiveBeforeAfterImage";
+import Button from "@/components/ui/Button";
 
 const pairs = [
   { before: "before1.webp", after: "after1.webp", beforePlaceholder: "BEFORE_1", afterPlaceholder: "AFTER_1", caption: "iPhone 15 Pro · Lightroom Mobile" },
@@ -186,6 +187,13 @@ export default function Transformation() {
             <BeforeAfterSlider key={pair.before} {...pair} />
           ))}
         </div>
+
+        <motion.div variants={fadeUp} className="mt-14 sm:mt-16 text-center">
+          <p className="font-display text-xl sm:text-2xl text-cream/80 mb-6">
+            Your shots could look like this.
+          </p>
+          <Button href="/checkout">Transform your photos — $97 →</Button>
+        </motion.div>
       </motion.div>
     </section>
   );
