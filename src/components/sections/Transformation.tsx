@@ -20,13 +20,7 @@ interface BeforeAfterSliderProps {
   caption: string;
 }
 
-function BeforeAfterSlider({
-  before,
-  after,
-  beforePlaceholder,
-  afterPlaceholder,
-  caption,
-}: BeforeAfterSliderProps) {
+function BeforeAfterSlider({ before, after, beforePlaceholder, afterPlaceholder, caption }: BeforeAfterSliderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
@@ -35,42 +29,43 @@ function BeforeAfterSlider({
     const container = containerRef.current;
     if (!container) return;
     const rect = container.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const pct = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
     setPosition(pct);
   }, []);
 
-  const handlePointerDown = useCallback(
-    (e: React.PointerEvent) => {
-      const container = containerRef.current;
-      if (!container) return;
+  // ── Mouse: click/drag anywhere on the container ──────────────────────────
+  const onMouseDown = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    setIsDragging(true);
+    containerRef.current?.setPointerCapture(e.pointerId);
+    updatePosition(e.clientX);
+  }, [updatePosition]);
 
-      // Touch/pen: only respond if within the knob hitbox — elsewhere lets scroll pass through
-      if (e.pointerType !== "mouse") {
-        const rect = container.getBoundingClientRect();
-        const handleX = rect.left + (position / 100) * rect.width;
-        const handleY = rect.top + rect.height / 2; // knob sits at vertical center
-        const dx = Math.abs(e.clientX - handleX);
-        const dy = Math.abs(e.clientY - handleY);
-        if (dx > 36 || dy > 52) return; // generous hitbox around knob only
-      }
+  const onMouseMove = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse" || !isDragging) return;
+    updatePosition(e.clientX);
+  }, [isDragging, updatePosition]);
 
-      setIsDragging(true);
-      container.setPointerCapture(e.pointerId);
-      updatePosition(e.clientX);
-    },
-    [updatePosition, position]
-  );
+  const onMouseUp = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    setIsDragging(false);
+  }, []);
 
-  const handlePointerMove = useCallback(
-    (e: React.PointerEvent) => {
-      if (!isDragging) return;
-      updatePosition(e.clientX);
-    },
-    [isDragging, updatePosition]
-  );
+  // ── Touch/pen: only the handle element responds (touch-action:none on it) ─
+  const onTouchDown = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") return;
+    setIsDragging(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
+    updatePosition(e.clientX);
+  }, [updatePosition]);
 
-  const handlePointerUp = useCallback(() => {
+  const onTouchMove = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType === "mouse" || !isDragging) return;
+    updatePosition(e.clientX);
+  }, [isDragging, updatePosition]);
+
+  const onTouchUp = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") return;
     setIsDragging(false);
   }, []);
 
@@ -89,14 +84,16 @@ function BeforeAfterSlider({
           if (e.key === "ArrowLeft") setPosition((p) => Math.max(0, p - 2));
           if (e.key === "ArrowRight") setPosition((p) => Math.min(100, p + 2));
         }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onDragStart={(e) => e.preventDefault()}
+        onPointerDown={onMouseDown}
+        onPointerMove={onMouseMove}
+        onPointerUp={onMouseUp}
         draggable={false}
       >
-        {/* After image (full, behind) */}
-        <div className="absolute inset-0">
+        {/* After image — explicitly clipped to right side */}
+        <div
+          className="absolute inset-0"
+          style={{ clipPath: `inset(0 0 0 ${position}%)` }}
+        >
           <ResponsiveBeforeAfterImage
             filename={after}
             placeholderLabel={afterPlaceholder}
@@ -105,7 +102,7 @@ function BeforeAfterSlider({
           />
         </div>
 
-        {/* Before image (clipped) */}
+        {/* Before image — explicitly clipped to left side */}
         <div
           className="absolute inset-0"
           style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}
@@ -118,12 +115,21 @@ function BeforeAfterSlider({
           />
         </div>
 
-        {/* Handle — visual only, no pointer events */}
+        {/* Handle — touch/pen hitbox + visual. touch-action:none scoped here only. */}
         <div
-          className="absolute top-0 bottom-0 z-10 pointer-events-none"
-          style={{ left: `${position}%`, width: "44px", marginLeft: "-22px" }}
+          className="absolute inset-y-0 z-10 cursor-ew-resize"
+          style={{
+            left: `${position}%`,
+            width: "44px",
+            marginLeft: "-22px",
+            touchAction: "none",
+          }}
+          onPointerDown={onTouchDown}
+          onPointerMove={onTouchMove}
+          onPointerUp={onTouchUp}
+          draggable={false}
         >
-          <div className="relative h-full">
+          <div className="relative h-full pointer-events-none">
             <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-cream/40" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-obsidian/60 backdrop-blur-md border border-cream/30 flex items-center justify-center">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">

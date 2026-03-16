@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LUMÉ — iPhone Photography Mastery
+
+Premium direct-response sales funnel for the LUMÉ iPhone photography course.
+
+**Stack:** Next.js 14 · TypeScript · Tailwind CSS · Framer Motion · Stripe
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env.local
+# Fill in your Stripe keys in .env.local
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Description | Where |
+|---|---|---|
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key | Client + Server |
+| `STRIPE_SECRET_KEY` | Stripe secret key | Server only |
+| `NEXT_PUBLIC_SITE_URL` | Site URL for redirects | Client + Server |
 
-## Learn More
+## Pages
 
-To learn more about Next.js, take a look at the following resources:
+| Route | Description |
+|---|---|
+| `/` | Landing page — 7 sections + sticky nav + footer |
+| `/checkout` | Checkout with Stripe PaymentElement |
+| `/success` | Post-purchase welcome + upsell |
+| `/privacy` | Privacy policy (placeholder) |
+| `/terms` | Terms of service (placeholder) |
+| `/api/create-payment-intent` | Stripe PaymentIntent creation |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Placeholder Map
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All placeholders use the `[[BRACKET]]` convention and are visually marked with dashed borders and crosshair cursors.
 
-## Deploy on Vercel
+### Images
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Placeholder | File | Dimensions | Description |
+|---|---|---|---|
+| `[[HERO_IMAGE]]` | `src/components/sections/Hero.tsx` | 900 x 1200px | Hero portrait — the most striking iPhone photo available |
+| `[[HERO_IMAGE_ALT]]` | `src/components/sections/Hero.tsx` | — | Alt text for hero image |
+| `[[BEFORE_1]]` / `[[AFTER_1]]` | `src/components/sections/Transformation.tsx` | 600 x 800px | Before/after pair 1 |
+| `[[BEFORE_2]]` / `[[AFTER_2]]` | `src/components/sections/Transformation.tsx` | 600 x 800px | Before/after pair 2 |
+| `[[BEFORE_3]]` / `[[AFTER_3]]` | `src/components/sections/Transformation.tsx` | 600 x 800px | Before/after pair 3 |
+| `[[INSTRUCTOR_PHOTO]]` | `src/components/sections/Instructor.tsx` | 600 x 800px | Instructor portrait, natural light |
+| `[[INSTRUCTOR_PHOTO_ALT]]` | `src/components/sections/Instructor.tsx` | — | Alt text for instructor photo |
+| `[[LOGO]]` | `src/components/sections/Footer.tsx` | 32 x 32px | Logo mark |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Text
+
+| Placeholder | File | Description |
+|---|---|---|
+| `[Elias]` | `Instructor.tsx`, `SuccessContent.tsx` | Instructor's name |
+| `[[INSTRUCTOR_BIO]]` | `Instructor.tsx` | 2-3 sentence instructor biography |
+| `[[STUDENT_COUNT]]` | `Instructor.tsx` | Number of students enrolled |
+| `[[FIVE_STAR_COUNT]]` | `Instructor.tsx` | Number of five-star reviews |
+| `[[INSTAGRAM_HANDLE]]` | `Instructor.tsx`, `SuccessContent.tsx` | Instagram handle (without @) |
+| `[[TESTIMONIAL_1]]` through `[[TESTIMONIAL_5]]` | `src/data/testimonials.ts` | Replace seed testimonials with real ones |
+| `[[PRIVACY_POLICY_CONTENT]]` | `src/app/privacy/page.tsx` | Full privacy policy text |
+| `[[TERMS_OF_SERVICE_CONTENT]]` | `src/app/terms/page.tsx` | Full terms of service text |
+| `[[UPSELL_PAYMENT_LINK]]` | `SuccessContent.tsx` | Stripe Payment Link for 1:1 coaching upsell |
+| `[[YEAR]]` | `Footer.tsx` | Auto-generated from `new Date().getFullYear()` |
+
+## Project Structure
+
+```
+src/
+  app/               # App Router pages and API routes
+  components/
+    ui/              # Primitive components (Button, SectionLabel, Placeholder, Divider, Badge)
+    sections/        # Landing page sections
+    checkout/        # Stripe checkout components
+  data/              # Static content (modules, FAQs, testimonials, includes)
+  lib/               # Utilities (cn, motion variants)
+  types/             # TypeScript interfaces
+```
+
+## Deployment
+
+Optimized for Vercel. Set environment variables in the Vercel dashboard.
+
+```bash
+npm run build
+```
