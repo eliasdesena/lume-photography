@@ -103,9 +103,9 @@ export default function Modules() {
 
         <motion.div variants={fadeUp} className="mt-14 sm:mt-16 text-center">
           <p className="font-display text-xl sm:text-2xl text-cream/80 mb-6">
-            Ready to master every module?
+            Everything you need. Nothing you don&apos;t.
           </p>
-          <Button href="/checkout">Enroll now — $97 →</Button>
+          <Button href="/checkout">Get instant access — $97</Button>
         </motion.div>
       </motion.div>
     </section>

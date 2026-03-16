@@ -43,7 +43,7 @@ export default function MobileStickyFooter() {
           href="/checkout"
           className="flex items-center justify-between w-full bg-gold hover:bg-gold/90 active:scale-[0.98] text-obsidian font-body font-medium text-xs uppercase tracking-[0.04em] px-5 py-3.5 transition-all duration-200"
         >
-          <span>Start shooting like a pro</span>
+          <span>Get instant access</span>
           <span className="font-body font-medium text-xs">$97 →</span>
         </a>
         <p className="text-center text-[10px] text-muted/40 font-body mt-2 tracking-wide">

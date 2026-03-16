@@ -59,7 +59,7 @@ export default function Pricing() {
               </p>
 
               <Button href="/checkout" fullWidth className="mb-5">
-                Enroll in LUMÉ →
+                Get instant access →
               </Button>
 
               <p className="text-xs text-muted/50 mb-8">

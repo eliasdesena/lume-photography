@@ -92,7 +92,7 @@ export default function FAQ() {
             <p className="font-body font-light text-muted text-sm mb-8 max-w-sm mx-auto">
               You have 30 days to explore everything. If it&apos;s not for you, get a full refund — no questions.
             </p>
-            <Button href="/checkout">Start for $97</Button>
+            <Button href="/checkout">Try it risk-free — $97</Button>
           </div>
         </motion.div>
       </motion.div>

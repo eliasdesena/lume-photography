@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Placeholder from "@/components/ui/Placeholder";
-import Button from "@/components/ui/Button";
 import { course } from "@/config/course";
 
 function InstructorPhoto() {
@@ -85,15 +84,11 @@ export default function Instructor() {
             href={`https://instagram.com/${course.instagramHandle}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-muted hover:text-gold transition-colors font-body group mb-10"
+            className="inline-flex items-center gap-2 text-sm text-muted hover:text-gold transition-colors font-body group"
           >
             @{course.instagramHandle}
             <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
           </a>
-
-          <div>
-            <Button href="/checkout">Learn from {course.instructorName} — $97 →</Button>
-          </div>
         </motion.div>
       </motion.div>
     </section>

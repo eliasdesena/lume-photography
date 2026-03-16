@@ -60,8 +60,8 @@ export default function StickyNav() {
             href="/checkout"
             className="inline-flex items-center gap-1.5 bg-gold hover:bg-gold/90 active:scale-95 text-obsidian font-body font-semibold text-[11px] uppercase tracking-[0.06em] px-4 py-2 rounded-full transition-all duration-200"
           >
-            Enroll
-            <span className="hidden sm:inline">— $97</span>
+            Get access
+            <span className="hidden sm:inline"> — $97</span>
           </a>
 
         </div>

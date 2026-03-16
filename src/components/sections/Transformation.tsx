@@ -192,7 +192,7 @@ export default function Transformation() {
           <p className="font-display text-xl sm:text-2xl text-cream/80 mb-6">
             Your shots could look like this.
           </p>
-          <Button href="/checkout">Transform your photos — $97 →</Button>
+          <Button href="/checkout">Start shooting like this →</Button>
         </motion.div>
       </motion.div>
     </section>
