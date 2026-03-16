@@ -7,9 +7,9 @@ import ResponsiveBeforeAfterImage from "@/components/ui/ResponsiveBeforeAfterIma
 import Button from "@/components/ui/Button";
 
 const pairs = [
-  { before: "before1.webp", after: "after1.webp", beforePlaceholder: "BEFORE_1", afterPlaceholder: "AFTER_1", caption: "iPhone 15 Pro · Lightroom Mobile" },
-  { before: "before2.webp", after: "after2.webp", beforePlaceholder: "BEFORE_2", afterPlaceholder: "AFTER_2", caption: "iPhone 14 · Snapseed" },
-  { before: "before3.webp", after: "after3.webp", beforePlaceholder: "BEFORE_3", afterPlaceholder: "AFTER_3", caption: "iPhone 13 Pro Max · Lightroom Mobile" },
+  { before: "before1.webp", after: "after1.webp", beforePlaceholder: "BEFORE_1", afterPlaceholder: "AFTER_1", caption: "iPhone 14 Pro · Lightroom" },
+  { before: "before2.webp", after: "after2.webp", beforePlaceholder: "BEFORE_2", afterPlaceholder: "AFTER_2", caption: "iPhone 14 Pro · Lightroom + Snapseed" },
+  { before: "before3.webp", after: "after3.webp", beforePlaceholder: "BEFORE_3", afterPlaceholder: "AFTER_3", caption: "iPhone 14 Pro · Lightroom" },
 ];
 
 interface BeforeAfterSliderProps {
@@ -174,7 +174,7 @@ export default function Transformation() {
             <em className="text-gold italic">Edited in minutes.</em>
           </h2>
           <p className="font-body font-light text-muted text-base leading-relaxed">
-            Every photo below was taken on an iPhone. No professional camera. No studio. Drag to see the edit.
+            Every photo below was taken and edited on an iPhone just like yours. No professional camera. No studio. Drag to see the edit.
           </p>
         </motion.div>
 

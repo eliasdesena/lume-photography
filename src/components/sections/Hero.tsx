@@ -31,12 +31,22 @@ export default function Hero() {
       {/* Content — bottom-anchored, left-aligned */}
       <div className="relative z-10 w-full">
         <div className="max-w-content mx-auto px-6 pb-12 sm:pb-20 lg:pb-24">
+          <motion.p
+            className="text-label text-gold mb-5"
+            variants={heroTextReveal}
+            initial="hidden"
+            animate="visible"
+            custom={0}
+          >
+            The iPhone Photography Course
+          </motion.p>
+
           <motion.h1
             className="font-display text-[2.5rem] sm:text-6xl lg:text-7xl xl:text-[5.5rem] leading-[1.05] tracking-tight mb-5 max-w-2xl"
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
-            custom={0}
+            custom={1}
           >
             Turn your iPhone into a camera that{" "}
             <em className="text-gold italic">pays you.</em>
@@ -47,7 +57,7 @@ export default function Hero() {
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
-            custom={1}
+            custom={2}
           >
             Learn composition, lighting, and mobile editing to create professional photos — and how to sell them.
           </motion.p>
@@ -57,7 +67,7 @@ export default function Hero() {
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
-            custom={2}
+            custom={3}
           >
             <Button href="/checkout">Get instant access — $97</Button>
           </motion.div>
@@ -68,7 +78,7 @@ export default function Hero() {
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
-            custom={3}
+            custom={4}
           >
             <span>Rated {course.averageRating}/5</span>
             <span className="text-gold/25">·</span>
