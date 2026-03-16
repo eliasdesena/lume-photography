@@ -7,13 +7,15 @@ export const course = {
   // ─── Instructor ────────────────────────────────────────────────────────────
   instructorName: "Elias",
   instructorBio:
-    "I've been shooting with nothing but my iPhone for 5 years — and turned it into a full-time career. I've worked with brands, sold prints, and built a following of over 100k photographers who started exactly where you are. LUMÉ is everything I wish I had when I started.",
+    "I shoot everything on my iPhone. Over 5 years I've worked with brands, sold prints internationally, and built a community of 100,000+ mobile photographers. LUMÉ is everything I learned — no filler, just what actually works.",
   instagramHandle: "yourhandle",
   instructorPhotoAlt: "iPhone photographer and LUMÉ instructor",
 
   // ─── Social Proof ──────────────────────────────────────────────────────────
   studentCount: "2,400",
   fiveStarCount: "1,800",
+  averageRating: "4.9",
+  followerCount: "100k",
 
   // ─── Stripe ────────────────────────────────────────────────────────────────
   upsellPaymentLink: "YOUR_STRIPE_LINK",

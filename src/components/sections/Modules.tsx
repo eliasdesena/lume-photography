@@ -24,16 +24,14 @@ export default function Modules() {
         {/* Section header — full width, editorial */}
         <motion.div variants={fadeUp} className="mb-16 sm:mb-20 lg:flex lg:items-end lg:justify-between lg:gap-16">
           <div className="lg:max-w-md">
-            <SectionLabel>The curriculum</SectionLabel>
+            <SectionLabel>What&apos;s inside</SectionLabel>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight">
-              Five modules.
-              <br />
-              One <em className="text-gold italic">transformation.</em>
+              Five modules.{" "}
+              <em className="text-gold italic">Zero filler.</em>
             </h2>
           </div>
           <p className="font-body font-light text-muted text-base leading-relaxed mt-4 lg:mt-0 lg:max-w-sm">
-            From the camera app to your first paid gig — every step covered.
-            No filler. No fluff. Just the skills that move the needle.
+            From your first shot to your first paid gig. Watch at your own pace, revisit anytime.
           </p>
         </motion.div>
 
@@ -102,9 +100,6 @@ export default function Modules() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-14 sm:mt-16 text-center">
-          <p className="font-display text-xl sm:text-2xl text-cream/80 mb-6">
-            Everything you need. Nothing you don&apos;t.
-          </p>
           <Button href="/checkout">Get instant access — $97</Button>
         </motion.div>
       </motion.div>

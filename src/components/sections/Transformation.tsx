@@ -3,7 +3,6 @@
 import { useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
-import SectionLabel from "@/components/ui/SectionLabel";
 import ResponsiveBeforeAfterImage from "@/components/ui/ResponsiveBeforeAfterImage";
 import Button from "@/components/ui/Button";
 
@@ -170,15 +169,12 @@ export default function Transformation() {
         viewport={viewportConfig}
       >
         <motion.div variants={fadeUp} className="max-w-lg mb-16 sm:mb-20">
-          <SectionLabel>The proof</SectionLabel>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl mb-5 leading-tight">
-            Your phone is already
-            <br />
-            capable of <em className="text-gold italic">this.</em>
+            Shot on iPhone.{" "}
+            <em className="text-gold italic">Edited in minutes.</em>
           </h2>
           <p className="font-body font-light text-muted text-base leading-relaxed">
-            Every image below was shot on an iPhone. No DSLR. No studio.
-            Drag to see the edit.
+            Every photo below was taken on an iPhone. No professional camera. No studio. Drag to see the edit.
           </p>
         </motion.div>
 

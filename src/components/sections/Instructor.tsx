@@ -64,19 +64,26 @@ export default function Instructor() {
           </p>
 
           {/* Stats */}
-          <div className="flex items-baseline gap-10 mb-8">
+          <div className="flex items-baseline gap-8 sm:gap-10 mb-8">
             <div>
-              <p className="font-display text-4xl sm:text-5xl text-cream">
-                {course.studentCount}
+              <p className="font-display text-3xl sm:text-5xl text-cream">
+                {course.studentCount}+
               </p>
               <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Students</p>
             </div>
             <div className="w-px h-10 bg-hairline" />
             <div>
-              <p className="font-display text-4xl sm:text-5xl text-cream">
-                {course.fiveStarCount}
+              <p className="font-display text-3xl sm:text-5xl text-cream">
+                {course.averageRating}/5
               </p>
-              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Five-star reviews</p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Avg rating</p>
+            </div>
+            <div className="w-px h-10 bg-hairline" />
+            <div>
+              <p className="font-display text-3xl sm:text-5xl text-cream">
+                {course.followerCount}+
+              </p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Followers</p>
             </div>
           </div>
 

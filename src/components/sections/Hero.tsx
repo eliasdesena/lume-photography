@@ -7,10 +7,6 @@ import Button from "@/components/ui/Button";
 import { course } from "@/config/course";
 
 export default function Hero() {
-  const scrollToModules = () => {
-    document.getElementById("modules")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <section className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
       {/* Background — image + cinematic overlay */}
@@ -35,50 +31,35 @@ export default function Hero() {
       {/* Content — bottom-anchored, left-aligned */}
       <div className="relative z-10 w-full">
         <div className="max-w-content mx-auto px-6 pb-12 sm:pb-20 lg:pb-24">
-          <motion.p
-            className="text-label text-gold mb-5"
+          <motion.h1
+            className="font-display text-[2.5rem] sm:text-6xl lg:text-7xl xl:text-[5.5rem] leading-[1.05] tracking-tight mb-5 max-w-2xl"
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
             custom={0}
           >
-            The iPhone Photography Course
-          </motion.p>
+            Turn your iPhone into a camera that{" "}
+            <em className="text-gold italic">pays you.</em>
+          </motion.h1>
 
-          <motion.h1
-            className="font-display text-[2.6rem] sm:text-6xl lg:text-7xl xl:text-[5.5rem] leading-[1.05] tracking-tight mb-5 max-w-xl"
+          <motion.p
+            className="font-body font-light text-base sm:text-lg text-cream/60 mb-8 max-w-md leading-relaxed"
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
             custom={1}
           >
-            Your phone.{" "}
-            <em className="text-gold italic">Your portfolio.</em>{" "}
-            <br className="hidden sm:block" />
-            Your income.
-          </motion.h1>
+            Learn composition, lighting, and mobile editing to create professional photos — and how to sell them.
+          </motion.p>
 
-          <motion.p
-            className="font-body font-light text-base sm:text-lg text-cream/65 mb-8 max-w-sm leading-relaxed"
+          <motion.div
+            className="mb-9"
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
             custom={2}
           >
-            The gap between your photos and the ones you love isn&apos;t your phone. It&apos;s technique. LUMÉ closes that gap.
-          </motion.p>
-
-          <motion.div
-            className="flex flex-col sm:flex-row items-start gap-4 mb-9"
-            variants={heroTextReveal}
-            initial="hidden"
-            animate="visible"
-            custom={3}
-          >
             <Button href="/checkout">Get instant access — $97</Button>
-            <Button variant="ghost" onClick={scrollToModules}>
-              See the curriculum ↓
-            </Button>
           </motion.div>
 
           {/* Trust strip */}
@@ -87,13 +68,13 @@ export default function Hero() {
             variants={heroTextReveal}
             initial="hidden"
             animate="visible"
-            custom={4}
+            custom={3}
           >
-            <span>Lifetime access</span>
-            <span className="text-gold/25">·</span>
-            <span>30-day guarantee</span>
+            <span>Rated {course.averageRating}/5</span>
             <span className="text-gold/25">·</span>
             <span>{course.studentCount}+ students</span>
+            <span className="text-gold/25">·</span>
+            <span>30-day money-back guarantee</span>
           </motion.div>
         </div>
       </div>

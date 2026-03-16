@@ -20,15 +20,13 @@ export default function Pricing() {
         <div className="lg:flex lg:items-center lg:gap-20">
           {/* Left — the pitch */}
           <motion.div variants={fadeUp} className="lg:w-[45%] mb-16 lg:mb-0">
-            <p className="text-label text-gold mb-6">Enroll today</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight mb-6">
-              Everything you need.
-              <br />
+              Everything you need.{" "}
               <em className="text-gold italic">Nothing you don&apos;t.</em>
             </h2>
             <p className="font-body font-light text-muted text-base leading-relaxed mb-6 max-w-sm">
-              Photography courses average $300–$500. DSLR gear starts at $1,200.
-              LUMÉ gives you the complete toolkit — for a fraction of the cost.
+              Most photography courses cost $300–$500. A DSLR starts at $1,200.
+              LUMÉ gives you professional results from your iPhone — for a fraction of the price.
             </p>
             <ul className="space-y-3">
               {includes.map((item) => (
