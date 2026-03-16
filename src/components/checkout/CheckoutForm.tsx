@@ -54,16 +54,16 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <h2 className="font-display text-2xl text-cream mb-6">
         Complete your enrollment
       </h2>
 
-      {/* Email field */}
+      {/* Email — custom field styled to match brand */}
       <div>
         <label
           htmlFor="email"
-          className="block text-xs text-muted font-body mb-2 uppercase tracking-wider"
+          className="block font-body text-[10px] text-muted uppercase tracking-[0.15em] font-medium mb-2"
         >
           Email address
         </label>
@@ -72,7 +72,14 @@ export default function CheckoutForm() {
           type="email"
           autoComplete="email"
           placeholder="you@example.com"
-          className="w-full bg-surface-2 border border-hairline rounded px-4 py-3 text-cream font-body text-sm placeholder:text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold/30 transition-colors"
+          className={[
+            "w-full bg-surface-2 border rounded-[3px] px-[14px] py-3",
+            "text-cream font-body font-light text-sm",
+            "placeholder:text-muted/45",
+            "focus:outline-none focus:ring-[3px] focus:ring-gold/10 focus:border-gold/40",
+            "transition-colors",
+            errors.email ? "border-error/50" : "border-hairline",
+          ].join(" ")}
           {...register("email", {
             required: "Email is required",
             pattern: {
@@ -82,42 +89,54 @@ export default function CheckoutForm() {
           })}
         />
         {errors.email && (
-          <p className="text-error text-xs mt-1 font-body">
+          <p className="text-error text-[12px] font-body mt-1.5">
             {errors.email.message}
           </p>
         )}
       </div>
 
-      {/* Stripe PaymentElement */}
-      <div>
+      {/* Stripe PaymentElement — fonts injected via StripeProvider fonts[] */}
+      <div className="pt-1">
         <PaymentElement
           options={{
-            layout: "tabs",
+            layout: {
+              type: "tabs",
+              defaultCollapsed: false,
+            },
+            fields: {
+              billingDetails: {
+                email: "never", // collected above in our branded field
+              },
+            },
           }}
         />
       </div>
 
-      {/* Error message */}
+      {/* Error */}
       {error && (
-        <div className="bg-error/10 border border-error/20 rounded px-4 py-3">
+        <div className="bg-error/10 border border-error/20 rounded-[3px] px-4 py-3">
           <p className="text-error text-sm font-body">{error}</p>
         </div>
       )}
 
       {/* Submit */}
-      <Button
-        type="submit"
-        fullWidth
-        loading={loading}
-        disabled={!stripe || !elements}
-      >
-        Pay $97.00 →
-      </Button>
+      <div className="pt-1">
+        <Button
+          type="submit"
+          fullWidth
+          loading={loading}
+          disabled={!stripe || !elements}
+        >
+          Pay $97.00 →
+        </Button>
+      </div>
 
       {/* Trust line */}
-      <div className="flex items-center justify-center gap-2 text-muted/60">
-        <Lock size={12} />
-        <span className="text-xs font-body">256-bit SSL · Powered by Stripe</span>
+      <div className="flex items-center justify-center gap-2 text-muted/50 pt-1">
+        <Lock size={11} />
+        <span className="text-[11px] font-body tracking-wide">
+          256-bit SSL · Secured by Stripe
+        </span>
       </div>
     </form>
   );
