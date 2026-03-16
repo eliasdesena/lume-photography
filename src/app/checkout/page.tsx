@@ -1,7 +1,28 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { CheckCircle, Shield, Star } from "lucide-react";
 import { includes } from "@/data/includes";
-import StripeProvider from "@/components/checkout/StripeProvider";
+
+const StripeProvider = dynamic(
+  () => import("@/components/checkout/StripeProvider"),
+  {
+    loading: () => (
+      <div className="bg-surface rounded border border-hairline p-8">
+        <div className="animate-pulse space-y-5">
+          <div className="h-3 bg-surface-2 rounded w-1/3" />
+          <div className="h-11 bg-surface-2 rounded" />
+          <div className="h-3 bg-surface-2 rounded w-1/4 mt-6" />
+          <div className="h-11 bg-surface-2 rounded" />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="h-11 bg-surface-2 rounded" />
+            <div className="h-11 bg-surface-2 rounded" />
+          </div>
+          <div className="h-12 bg-surface-2 rounded mt-2" />
+        </div>
+      </div>
+    ),
+  }
+);
 
 export const metadata = {
   title: "Checkout — LUMÉ",
@@ -77,7 +98,7 @@ export default function CheckoutPage() {
               for itself before I finished module four.&rdquo;
             </p>
             <p className="text-xs text-muted font-body">
-              Elena V. <span className="text-muted/60">@elenav.studio</span>
+              Elena V. <span className="text-muted/60">· LUMÉ student</span>
             </p>
           </div>
 

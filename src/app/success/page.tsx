@@ -8,11 +8,12 @@ export const metadata = {
 };
 
 interface SuccessPageProps {
-  searchParams: { payment_intent?: string; payment_intent_client_secret?: string };
+  searchParams: Promise<{ payment_intent?: string; payment_intent_client_secret?: string }>;
 }
 
 export default async function SuccessPage({ searchParams }: SuccessPageProps) {
-  const paymentIntentId = searchParams.payment_intent;
+  const params = await searchParams;
+  const paymentIntentId = params.payment_intent;
 
   if (!paymentIntentId) {
     redirect("/checkout");

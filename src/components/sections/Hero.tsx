@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { heroImageReveal, heroTextReveal } from "@/lib/motion";
 import Button from "@/components/ui/Button";
 import { course } from "@/config/course";
@@ -49,7 +49,7 @@ export default function Hero() {
             custom={1}
           >
             Turn your iPhone into a camera that{" "}
-            <em className="text-gold italic">pays you.</em>
+            <em className="italic bg-gradient-to-r from-gold to-[#E8D5A3] bg-clip-text text-transparent">pays you.</em>
           </motion.h1>
 
           <motion.p
@@ -80,9 +80,7 @@ export default function Hero() {
             animate="visible"
             custom={4}
           >
-            <span>Rated {course.averageRating}/5</span>
-            <span className="text-gold/25">·</span>
-            <span>{course.studentCount}+ students</span>
+            <span>{course.studentCount}+ students enrolled</span>
             <span className="text-gold/25">·</span>
             <span>30-day money-back guarantee</span>
           </motion.div>

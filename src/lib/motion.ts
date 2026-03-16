@@ -1,4 +1,4 @@
-import type { Variants } from "framer-motion";
+import type { Variants } from "motion/react";
 
 /**
  * Core easing curve — used everywhere for a consistent organic feel.

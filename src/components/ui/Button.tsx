@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { forwardRef, type ReactNode, type ButtonHTMLAttributes } from "react";
 
 type ButtonVariant = "primary" | "ghost";
@@ -52,7 +52,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <motion.a
           href={href}
           className={classes}
-          whileHover={{ scale: variant === "primary" ? 1.02 : 1 }}
           whileTap={{ scale: variant === "primary" ? 0.98 : 1 }}
         >
           {children}
@@ -65,7 +64,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         className={classes}
         disabled={disabled || loading}
-        whileHover={{ scale: variant === "primary" ? 1.02 : 1 }}
         whileTap={{ scale: variant === "primary" ? 0.98 : 1 }}
         onClick={props.onClick}
         type={props.type}

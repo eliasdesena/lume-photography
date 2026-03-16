@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import ResponsiveBeforeAfterImage from "@/components/ui/ResponsiveBeforeAfterImage";
 import Button from "@/components/ui/Button";
@@ -171,7 +171,7 @@ export default function Transformation() {
         <motion.div variants={fadeUp} className="max-w-lg mb-16 sm:mb-20">
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl mb-5 leading-tight">
             Shot on iPhone.{" "}
-            <em className="text-gold italic">Edited in minutes.</em>
+            <em className="italic bg-gradient-to-r from-gold to-[#E8D5A3] bg-clip-text text-transparent">Edited in minutes.</em>
           </h2>
           <p className="font-body font-light text-muted text-base leading-relaxed">
             Every photo below was taken and edited on an iPhone just like yours. No professional camera. No studio. Drag to see the edit.

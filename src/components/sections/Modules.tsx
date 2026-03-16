@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { modules } from "@/data/modules";
 import { fadeUp, staggerContainer, accordionContent, viewportConfig } from "@/lib/motion";
@@ -27,7 +27,7 @@ export default function Modules() {
             <SectionLabel>What&apos;s inside</SectionLabel>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight">
               Five modules.{" "}
-              <em className="text-gold italic">Zero filler.</em>
+              <em className="italic bg-gradient-to-r from-gold to-[#E8D5A3] bg-clip-text text-transparent">Zero filler.</em>
             </h2>
           </div>
           <p className="font-body font-light text-muted text-base leading-relaxed mt-4 lg:mt-0 lg:max-w-sm">

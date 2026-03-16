@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { fadeUp, staggerContainer, viewportConfig } from "@/lib/motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Placeholder from "@/components/ui/Placeholder";
@@ -74,16 +74,16 @@ export default function Instructor() {
             <div className="w-px h-10 bg-hairline" />
             <div>
               <p className="font-display text-3xl sm:text-5xl text-cream">
-                {course.averageRating}/5
+                5+
               </p>
-              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Avg rating</p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Years shooting</p>
             </div>
             <div className="w-px h-10 bg-hairline" />
             <div>
               <p className="font-display text-3xl sm:text-5xl text-cream">
-                {course.followerCount}+
+                100%
               </p>
-              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Followers</p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">iPhone only</p>
             </div>
           </div>
 

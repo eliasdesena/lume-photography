@@ -1,14 +1,19 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/sections/Hero";
 import SocialProofMarquee from "@/components/sections/SocialProofMarquee";
-import Transformation from "@/components/sections/Transformation";
-import Modules from "@/components/sections/Modules";
-import Instructor from "@/components/sections/Instructor";
-import Pricing from "@/components/sections/Pricing";
-import FAQ from "@/components/sections/FAQ";
-import Footer from "@/components/sections/Footer";
 import StickyNav from "@/components/sections/StickyNav";
-import EmailCapture from "@/components/sections/EmailCapture";
-import MobileStickyFooter from "@/components/sections/MobileStickyFooter";
+
+// Below-fold: code-split and lazy-loaded
+const Transformation = dynamic(() => import("@/components/sections/Transformation"));
+const Modules = dynamic(() => import("@/components/sections/Modules"));
+const Instructor = dynamic(() => import("@/components/sections/Instructor"));
+const Pricing = dynamic(() => import("@/components/sections/Pricing"));
+const FAQ = dynamic(() => import("@/components/sections/FAQ"));
+const Footer = dynamic(() => import("@/components/sections/Footer"));
+
+// Floating overlays: code-split (browser APIs used inside useEffect)
+const EmailCapture = dynamic(() => import("@/components/sections/EmailCapture"));
+const MobileStickyFooter = dynamic(() => import("@/components/sections/MobileStickyFooter"));
 
 export default function Home() {
   return (

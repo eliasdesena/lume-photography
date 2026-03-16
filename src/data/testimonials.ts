@@ -2,28 +2,28 @@ import type { Testimonial } from "@/types";
 
 export const testimonials: Testimonial[] = [
   {
-    quote: "I landed my first UGC deal two weeks after finishing the monetization module — a $400 gig shooting flat lays for a skincare brand.",
+    quote: "I landed a $400 content gig two weeks after finishing the course — shooting flat lays for a skincare brand, all on my iPhone.",
     name: "Sarah M.",
-    handle: "@sarahshoots",
+    handle: "Student",
   },
   {
-    quote: "Golden hour used to intimidate me. Now it's my favourite three hours of the day. My feed has never looked this cohesive.",
+    quote: "Golden hour used to intimidate me. Now it's my favourite time to shoot. My feed has never looked this consistent.",
     name: "James K.",
-    handle: "@jameskphoto",
+    handle: "Student",
   },
   {
-    quote: "The Lightroom preset alone saved me hours. I can edit a full set of 20 images in under ten minutes now.",
+    quote: "The editing workflow alone saved me hours. I can edit a full set of photos in under ten minutes now.",
     name: "Priya L.",
-    handle: "@priyalens",
+    handle: "Student",
   },
   {
-    quote: "I didn't know ProRAW existed on my phone. The difference in dynamic range is staggering — my night shots look professional.",
+    quote: "I didn't even know ProRAW existed on my phone. The difference in my night photography is night and day.",
     name: "Daniel R.",
-    handle: "@danrframes",
+    handle: "Student",
   },
   {
-    quote: "Sold three stock photos in my first month. The course paid for itself before I finished module four.",
+    quote: "Sold three stock photos in my first month. The course genuinely paid for itself before I finished it.",
     name: "Elena V.",
-    handle: "@elenav.studio",
+    handle: "Student",
   },
 ];

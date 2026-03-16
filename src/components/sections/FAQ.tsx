@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { ChevronDown } from "lucide-react";
 import { faqs } from "@/data/faqs";
 import { fadeUp, staggerContainer, accordionContent, viewportConfig } from "@/lib/motion";
@@ -23,7 +23,7 @@ export default function FAQ() {
         <motion.div variants={fadeUp} className="mb-14 sm:mb-16">
           <p className="text-label text-gold mb-5">FAQ</p>
           <h2 className="font-display text-3xl sm:text-4xl leading-tight">
-            Questions? <em className="text-gold italic">Answered.</em>
+            Questions? <em className="italic bg-gradient-to-r from-gold to-[#E8D5A3] bg-clip-text text-transparent">Answered.</em>
           </h2>
         </motion.div>
 
