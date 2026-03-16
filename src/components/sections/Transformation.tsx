@@ -143,12 +143,12 @@ function BeforeAfterSlider({ before, after, beforePlaceholder, afterPlaceholder,
 
         {/* Labels */}
         <div className="absolute top-3 left-3 z-10 pointer-events-none">
-          <span className="text-[9px] uppercase tracking-[0.15em] text-cream/50 bg-obsidian/50 backdrop-blur-sm px-2.5 py-1 rounded-full font-body font-medium">
+          <span className="text-[9px] uppercase tracking-[0.08em] text-cream/50 bg-obsidian/50 backdrop-blur-sm px-2.5 py-1 rounded-full font-body font-medium">
             Before
           </span>
         </div>
         <div className="absolute top-3 right-3 z-10 pointer-events-none">
-          <span className="text-[9px] uppercase tracking-[0.15em] text-cream/50 bg-obsidian/50 backdrop-blur-sm px-2.5 py-1 rounded-full font-body font-medium">
+          <span className="text-[9px] uppercase tracking-[0.08em] text-cream/50 bg-obsidian/50 backdrop-blur-sm px-2.5 py-1 rounded-full font-body font-medium">
             After
           </span>
         </div>

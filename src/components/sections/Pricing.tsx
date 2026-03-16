@@ -54,7 +54,7 @@ export default function Pricing() {
               <p className="font-display text-[80px] sm:text-[96px] leading-none text-cream mb-6">
                 $97
               </p>
-              <p className="text-[11px] text-muted/50 font-body uppercase tracking-[0.15em] mb-10">
+              <p className="text-[11px] text-muted/50 font-body uppercase tracking-[0.08em] mb-10">
                 One-time payment · Lifetime access · Instant delivery
               </p>
 

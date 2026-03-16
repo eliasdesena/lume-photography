@@ -70,14 +70,14 @@ export default function Instructor() {
               <p className="font-display text-4xl sm:text-5xl text-cream">
                 {course.studentCount}
               </p>
-              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.15em] mt-1">Students</p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Students</p>
             </div>
             <div className="w-px h-10 bg-hairline" />
             <div>
               <p className="font-display text-4xl sm:text-5xl text-cream">
                 {course.fiveStarCount}
               </p>
-              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.15em] mt-1">Five-star reviews</p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Five-star reviews</p>
             </div>
           </div>
 
