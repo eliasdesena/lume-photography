@@ -2,7 +2,7 @@ import type { Testimonial } from "@/types";
 
 export const testimonials: Testimonial[] = [
   {
-    quote: "I landed a $400 content gig two weeks after finishing the course — shooting flat lays for a skincare brand, all on my iPhone.",
+    quote: "My photos actually look professional now. Friends keep asking what camera I use — it's still just my iPhone.",
     name: "Sarah M.",
     handle: "Student",
   },
@@ -17,12 +17,12 @@ export const testimonials: Testimonial[] = [
     handle: "Student",
   },
   {
-    quote: "I didn't even know ProRAW existed on my phone. The difference in my night photography is night and day.",
+    quote: "I didn't even know ProRAW existed on my phone. The difference in my night photography is unreal.",
     name: "Daniel R.",
     handle: "Student",
   },
   {
-    quote: "Sold three stock photos in my first month. The course genuinely paid for itself before I finished it.",
+    quote: "Module 3 on light and composition completely changed how I see everyday scenes. Worth it for that alone.",
     name: "Elena V.",
     handle: "Student",
   },

@@ -80,9 +80,11 @@ export default function Hero() {
             animate="visible"
             custom={4}
           >
-            <span>{course.studentCount}+ students enrolled</span>
+            <span>Join {course.studentCount}+ students</span>
             <span className="text-gold/25">·</span>
-            <span>30-day money-back guarantee</span>
+            <span>Instant access</span>
+            <span className="text-gold/25">·</span>
+            <span>30-day guarantee</span>
           </motion.div>
         </div>
       </div>

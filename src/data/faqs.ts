@@ -24,7 +24,7 @@ export const faqs: FAQ[] = [
   {
     question: "How fast will I see results?",
     answer:
-      "Most students see a visible difference within the first week. The editing module alone transforms your photos overnight. Several students have landed paid work within a month.",
+      "Most students notice a visible difference within the first week. The editing module alone can transform your photos overnight.",
   },
   {
     question: "How do I access the course?",

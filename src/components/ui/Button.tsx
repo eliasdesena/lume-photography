@@ -35,7 +35,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants: Record<ButtonVariant, string> = {
       primary:
-        "bg-gold text-obsidian px-8 py-4 text-sm uppercase tracking-[0.06em] hover:bg-cream active:scale-[0.98]",
+        "bg-gold text-obsidian px-8 py-4 text-sm uppercase tracking-[0.06em] hover:bg-cream",
       ghost:
         "text-muted hover:text-cream px-0 py-2 text-sm tracking-wide underline-offset-4 hover:underline",
     };

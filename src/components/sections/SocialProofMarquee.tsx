@@ -22,7 +22,10 @@ function MarqueeContent() {
 
 export default function SocialProofMarquee() {
   return (
-    <section className="py-5 overflow-hidden border-b border-hairline/50">
+    <section className="relative py-5 overflow-hidden border-b border-hairline/50">
+      {/* Edge fade for seamless loop */}
+      <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-obsidian to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-obsidian to-transparent z-10 pointer-events-none" />
       <div
         className="flex hover:[animation-play-state:paused]"
         style={{ width: "max-content" }}

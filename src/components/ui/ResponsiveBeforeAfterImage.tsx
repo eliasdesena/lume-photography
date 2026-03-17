@@ -45,6 +45,7 @@ export default function ResponsiveBeforeAfterImage({
       src={`/images/${filename}`}
       alt={alt}
       fill
+      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
       className="object-cover select-none pointer-events-none"
       onError={handleError}
       priority={filename === "before1.webp" || filename === "after1.webp"}

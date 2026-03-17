@@ -29,6 +29,6 @@ export const modules: Module[] = [
     number: "05",
     title: "How to Sell Your Photos",
     description:
-      "Stock licensing, brand deals, building a portfolio, and landing your first paying client. Students earn back the course cost within weeks.",
+      "Stock licensing, brand deals, building a portfolio, and finding your first paying client — step by step.",
   },
 ];

@@ -41,7 +41,7 @@ export default function MobileStickyFooter() {
       <div className="bg-obsidian/95 backdrop-blur-xl border-t border-white/[0.06] px-4 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
         <a
           href="/checkout"
-          className="flex items-center justify-between w-full bg-gold hover:bg-gold/90 active:scale-[0.98] text-obsidian font-body font-medium text-xs uppercase tracking-[0.04em] px-5 py-3.5 transition-all duration-200"
+          className="flex items-center justify-between w-full bg-gold hover:bg-cream text-obsidian font-body font-medium text-xs uppercase tracking-[0.04em] px-5 py-3.5 transition-colors duration-200"
         >
           <span>Get instant access</span>
           <span className="font-body font-medium text-xs">$97 →</span>

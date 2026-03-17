@@ -94,11 +94,11 @@ export default function CheckoutPage() {
               ))}
             </div>
             <p className="font-display italic text-sm text-cream/80 mb-3 leading-relaxed">
-              &ldquo;Sold three stock photos in my first month. The course paid
-              for itself before I finished module four.&rdquo;
+              &ldquo;The editing module alone changed everything. My photos look
+              completely different now — and it&apos;s still just my iPhone.&rdquo;
             </p>
             <p className="text-xs text-muted font-body">
-              Elena V. <span className="text-muted/60">· LUMÉ student</span>
+              Priya L. <span className="text-muted/60">· LUMÉ student</span>
             </p>
           </div>
 

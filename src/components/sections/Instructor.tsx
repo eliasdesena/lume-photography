@@ -30,6 +30,7 @@ function InstructorPhoto() {
         src="/images/elias.webp"
         alt={course.instructorPhotoAlt}
         fill
+        sizes="(max-width: 1024px) 100vw, 40vw"
         className="object-cover"
         onError={() => setShowPlaceholder(true)}
       />
@@ -66,24 +67,24 @@ export default function Instructor() {
           {/* Stats */}
           <div className="flex items-baseline gap-8 sm:gap-10 mb-8">
             <div>
-              <p className="font-display text-3xl sm:text-5xl text-cream">
+              <p className="font-display text-3xl sm:text-4xl text-cream">
                 {course.studentCount}+
               </p>
               <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Students</p>
             </div>
-            <div className="w-px h-10 bg-hairline" />
+            <div className="w-px h-10 bg-gradient-to-b from-transparent via-hairline to-transparent" />
             <div>
-              <p className="font-display text-3xl sm:text-5xl text-cream">
-                5+
+              <p className="font-display text-3xl sm:text-4xl text-cream">
+                5
               </p>
-              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Years shooting</p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Years teaching</p>
             </div>
-            <div className="w-px h-10 bg-hairline" />
+            <div className="w-px h-10 bg-gradient-to-b from-transparent via-hairline to-transparent" />
             <div>
-              <p className="font-display text-3xl sm:text-5xl text-cream">
-                100%
+              <p className="font-display text-3xl sm:text-4xl text-cream">
+                iPhone
               </p>
-              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">iPhone only</p>
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-[0.08em] mt-1">Only</p>
             </div>
           </div>
 

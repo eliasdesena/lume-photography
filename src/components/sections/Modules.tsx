@@ -13,7 +13,9 @@ export default function Modules() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section id="modules" className="py-24 sm:py-32 px-6 bg-surface">
+    <section id="modules" className="relative py-24 sm:py-32 px-6 bg-surface overflow-hidden">
+      {/* Subtle depth glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(200,164,90,0.03)_0%,transparent_70%)] pointer-events-none" />
       <motion.div
         className="max-w-content mx-auto"
         variants={staggerContainer}

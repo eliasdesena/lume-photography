@@ -50,7 +50,7 @@ export default function Pricing() {
             variants={scaleIn}
             className="lg:w-[55%] lg:max-w-lg lg:ml-auto"
           >
-            <div className="relative bg-obsidian rounded-sm p-8 sm:p-10 text-center ring-1 ring-gold/10">
+            <div className="relative bg-obsidian rounded-sm p-8 sm:p-10 text-center ring-1 ring-gold/10 shadow-[0_0_80px_-20px_rgba(200,164,90,0.08)]">
               <p className="font-display text-[80px] sm:text-[96px] leading-none text-cream mb-6">
                 $97
               </p>

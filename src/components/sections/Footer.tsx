@@ -4,7 +4,8 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-hairline/40">
+    <footer className="relative border-t border-hairline/40">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[1px] bg-gradient-to-r from-transparent via-gold/15 to-transparent" />
       <div className="max-w-content mx-auto px-6 py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Left: wordmark */}
