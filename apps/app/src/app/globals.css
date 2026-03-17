@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --obsidian: #0D0C0A;
+  --surface: #1C1A16;
+  --surface-2: #252220;
+  --hairline: #2E2A24;
+  --cream: #F2E8CC;
+  --gold: #C8A45A;
+  --gold-dim: #8A7040;
+  --muted: #6E6455;
+  --error: #E05A5A;
+}
+
+@layer base {
+  html {
+    background-color: var(--obsidian);
+    color: var(--cream);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-dm-sans), sans-serif;
+    background-color: var(--obsidian);
+  }
+
+  ::selection {
+    background-color: rgba(200, 164, 90, 0.3);
+    color: var(--cream);
+  }
+
+  *:focus-visible {
+    outline: 2px solid rgba(200, 164, 90, 0.5);
+    outline-offset: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--obsidian);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--hairline);
+    border-radius: 3px;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@lume/config",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./tailwind-preset": "./src/tailwind-preset.ts",
+    "./globals.css": "./src/globals.css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
