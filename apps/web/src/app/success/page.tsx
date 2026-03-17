@@ -24,7 +24,8 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   if (!key) {
     redirect("/checkout?error=configuration_error");
   }
-  const stripe = new Stripe(key, { apiVersion: "2026-02-25.clover" });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const stripe = new Stripe(key, { apiVersion: "2025-11-17.clover" as any });
 
   try {
     const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);

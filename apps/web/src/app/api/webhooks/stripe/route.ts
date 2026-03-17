@@ -5,7 +5,8 @@ import { sendTransactionalEmail, addContact } from "@/lib/brevo";
 
 function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: "2026-02-25.clover",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    apiVersion: "2025-11-17.clover" as any,
   });
 }
 
