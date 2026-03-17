@@ -151,6 +151,12 @@ function PaymentStep({
       confirmParams: {
         return_url: `${process.env.NEXT_PUBLIC_SITE_URL || window.location.origin}/success`,
         receipt_email: email,
+        // Required because we set fields.billingDetails.email = "never" above
+        payment_method_data: {
+          billing_details: {
+            email,
+          },
+        },
       },
     });
 

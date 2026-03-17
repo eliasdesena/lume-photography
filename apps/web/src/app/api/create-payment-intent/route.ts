@@ -11,6 +11,7 @@ function getStripe() {
 }
 
 export async function POST(request: NextRequest) {
+  console.log("[create-payment-intent] POST received");
   try {
     const body = await request.json().catch(() => ({}));
     const { name, email, couponCode } = body as {
@@ -18,6 +19,7 @@ export async function POST(request: NextRequest) {
       email?: string;
       couponCode?: string;
     };
+    console.log("[create-payment-intent] name=%s email=%s coupon=%s", name, email, couponCode ?? "none");
 
     const stripe = getStripe();
 
@@ -38,6 +40,7 @@ export async function POST(request: NextRequest) {
         const promo = promotionCodes.data[0];
         const coupon = promo.promotion?.coupon;
         appliedCouponCode = promo.code;
+        console.log("[create-payment-intent] coupon found: %s", appliedCouponCode);
 
         if (coupon && typeof coupon !== "string") {
           if (coupon.percent_off) {
@@ -71,11 +74,13 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    console.log("[create-payment-intent] ✓ created pi=%s amount=%d", paymentIntent.id, amount);
     return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
       amount,
     });
   } catch (err) {
+    console.error("[create-payment-intent] ERROR:", err);
     const message =
       err instanceof Error ? err.message : "Failed to create payment intent";
     return NextResponse.json({ error: message }, { status: 500 });
