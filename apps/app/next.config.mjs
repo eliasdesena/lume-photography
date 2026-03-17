@@ -8,6 +8,12 @@ const withSerwist = withSerwistInit({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
   // Allow Serwist's webpack config alongside Turbopack
   turbopack: {},
   transpilePackages: ["@lume/ui", "@lume/config", "@lume/types", "@lume/supabase"],

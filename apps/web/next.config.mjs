@@ -4,6 +4,12 @@ const withMDX = createMDX({});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
   transpilePackages: ["@lume/ui", "@lume/config", "@lume/types", "@lume/supabase"],
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   headers: async () => [
