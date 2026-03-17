@@ -3,7 +3,13 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "env": [
+        "STRIPE_SECRET_KEY",
+        "BREVO_API_KEY",
+        "STRIPE_WEBHOOK_SECRET",
+        "SUPABASE_SECRET_KEY"
+      ]
     },
     "dev": {
       "cache": false,
