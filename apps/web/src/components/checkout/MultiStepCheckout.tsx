@@ -6,11 +6,13 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements, PaymentElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import type { StripeElementsOptions } from "@stripe/stripe-js";
 import Button from "@/components/ui/Button";
-import { Lock } from "lucide-react";
+import { Lock, Tag, X, Check } from "lucide-react";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
 );
+
+const BASE_PRICE = 9700; // cents
 
 // ── Brand tokens for Stripe Elements ──
 const surface2 = "#252220";
@@ -106,15 +108,23 @@ const fadeSlide = {
   exit: { opacity: 0, x: -20, transition: { duration: 0.2 } },
 };
 
+function formatPrice(cents: number) {
+  return `$${(cents / 100).toFixed(2)}`;
+}
+
 // ── Payment step (renders inside Elements) ──
 function PaymentStep({
   name,
   email,
+  finalAmount,
+  discountLabel,
   error,
   setError,
 }: {
   name: string;
   email: string;
+  finalAmount: number;
+  discountLabel: string | null;
   error: string | null;
   setError: (e: string | null) => void;
 }) {
@@ -150,6 +160,8 @@ function PaymentStep({
     }
   }
 
+  const hasDiscount = finalAmount < BASE_PRICE;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Step indicator */}
@@ -163,6 +175,26 @@ function PaymentStep({
       <p className="font-body font-light text-muted/60 text-xs mb-4">
         Paying as {name} ({email})
       </p>
+
+      {/* Price summary */}
+      {hasDiscount && (
+        <div className="bg-gold/5 border border-gold/20 rounded-[3px] px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Tag size={13} className="text-gold" />
+            <span className="text-gold text-sm font-body font-medium">
+              {discountLabel}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-muted/50 text-sm font-body line-through">
+              {formatPrice(BASE_PRICE)}
+            </span>
+            <span className="text-cream text-sm font-body font-medium">
+              {formatPrice(finalAmount)}
+            </span>
+          </div>
+        </div>
+      )}
 
       <PaymentElement
         options={{
@@ -179,7 +211,7 @@ function PaymentStep({
 
       <div className="pt-1">
         <Button type="submit" fullWidth loading={loading} disabled={!stripe || !elements}>
-          Pay $97.00 →
+          Pay {formatPrice(finalAmount)} →
         </Button>
       </div>
 
@@ -202,6 +234,15 @@ export default function MultiStepCheckout() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Coupon state
+  const [couponInput, setCouponInput] = useState("");
+  const [couponCode, setCouponCode] = useState<string | null>(null);
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [couponError, setCouponError] = useState<string | null>(null);
+  const [discountLabel, setDiscountLabel] = useState<string | null>(null);
+  const [finalAmount, setFinalAmount] = useState(BASE_PRICE);
+  const [showCouponField, setShowCouponField] = useState(false);
+
   // Step 1 → 2: validate name
   function handleNameSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -211,6 +252,52 @@ export default function MultiStepCheckout() {
     }
     setError(null);
     setStep(2);
+  }
+
+  // Apply coupon code
+  async function handleApplyCoupon() {
+    if (!couponInput.trim()) {
+      setCouponError("Please enter a code");
+      return;
+    }
+
+    setCouponLoading(true);
+    setCouponError(null);
+
+    try {
+      const res = await fetch("/api/validate-coupon", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: couponInput.trim() }),
+      });
+
+      const data = await res.json();
+
+      if (data.valid) {
+        setCouponCode(data.code);
+        setDiscountLabel(`${data.code} — ${data.discountLabel} applied!`);
+        setFinalAmount(data.discountedAmount);
+        setCouponError(null);
+      } else {
+        setCouponError(data.error || "Invalid coupon code");
+        setCouponCode(null);
+        setDiscountLabel(null);
+        setFinalAmount(BASE_PRICE);
+      }
+    } catch {
+      setCouponError("Failed to validate code. Try again.");
+    } finally {
+      setCouponLoading(false);
+    }
+  }
+
+  // Remove applied coupon
+  function handleRemoveCoupon() {
+    setCouponCode(null);
+    setCouponInput("");
+    setCouponError(null);
+    setDiscountLabel(null);
+    setFinalAmount(BASE_PRICE);
   }
 
   // Step 2 → 3: save lead + create PaymentIntent
@@ -233,16 +320,21 @@ export default function MultiStepCheckout() {
           body: JSON.stringify({ name, email }),
         });
 
-        // Create PaymentIntent with metadata
+        // Create PaymentIntent with metadata + optional coupon
         const res = await fetch("/api/create-payment-intent", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email }),
+          body: JSON.stringify({
+            name,
+            email,
+            ...(couponCode && { couponCode }),
+          }),
         });
 
         if (!res.ok) throw new Error("Failed to create payment intent");
         const data = await res.json();
         setClientSecret(data.clientSecret);
+        if (data.amount) setFinalAmount(data.amount);
         setStep(3);
       } catch {
         setError("Something went wrong. Please try again.");
@@ -250,7 +342,7 @@ export default function MultiStepCheckout() {
         setLoading(false);
       }
     },
-    [name, email]
+    [name, email, couponCode]
   );
 
   return (
@@ -299,7 +391,7 @@ export default function MultiStepCheckout() {
           </motion.div>
         )}
 
-        {/* Step 2: Email */}
+        {/* Step 2: Email + Coupon */}
         {step === 2 && (
           <motion.div key="step-2" {...fadeSlide}>
             <form onSubmit={handleEmailSubmit} className="space-y-5">
@@ -334,6 +426,85 @@ export default function MultiStepCheckout() {
                   <p className="text-error text-[12px] font-body mt-1.5">{error}</p>
                 )}
               </div>
+
+              {/* Coupon code section */}
+              {!couponCode && !showCouponField && (
+                <button
+                  type="button"
+                  onClick={() => setShowCouponField(true)}
+                  className="flex items-center gap-1.5 text-muted/60 hover:text-gold text-xs font-body transition-colors"
+                >
+                  <Tag size={12} />
+                  Have a coupon code?
+                </button>
+              )}
+
+              {!couponCode && showCouponField && (
+                <div className="space-y-2">
+                  <label className="block font-body text-[10px] text-muted uppercase tracking-[0.15em] font-medium">
+                    Coupon code
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Enter code"
+                      value={couponInput}
+                      onChange={(e) => {
+                        setCouponInput(e.target.value.toUpperCase());
+                        setCouponError(null);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleApplyCoupon();
+                        }
+                      }}
+                      className="flex-1 bg-surface-2 border border-hairline rounded-[3px] px-[14px] py-2.5 text-cream font-body font-light text-sm placeholder:text-muted/45 focus:outline-none focus:ring-[3px] focus:ring-gold/10 focus:border-gold/40 transition-colors uppercase tracking-wider"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleApplyCoupon}
+                      disabled={couponLoading}
+                      className="px-4 py-2.5 bg-surface-2 border border-hairline rounded-[3px] text-cream text-sm font-body font-medium hover:border-gold/40 hover:text-gold transition-colors disabled:opacity-50"
+                    >
+                      {couponLoading ? "..." : "Apply"}
+                    </button>
+                  </div>
+                  {couponError && (
+                    <p className="text-error text-[12px] font-body">{couponError}</p>
+                  )}
+                </div>
+              )}
+
+              {/* Applied coupon badge */}
+              {couponCode && discountLabel && (
+                <div className="flex items-center justify-between bg-gold/5 border border-gold/20 rounded-[3px] px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <Check size={14} className="text-gold" />
+                    <span className="text-gold text-sm font-body font-medium">
+                      {discountLabel}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleRemoveCoupon}
+                    className="text-muted/50 hover:text-cream transition-colors"
+                  >
+                    <X size={14} />
+                  </button>
+                </div>
+              )}
+
+              {/* Price preview */}
+              {finalAmount < BASE_PRICE && (
+                <div className="flex items-center justify-between text-sm font-body pt-1">
+                  <span className="text-muted/60">Total</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted/40 line-through">{formatPrice(BASE_PRICE)}</span>
+                    <span className="text-cream font-medium">{formatPrice(finalAmount)}</span>
+                  </div>
+                </div>
+              )}
 
               <div className="flex gap-3">
                 <button
@@ -375,6 +546,8 @@ export default function MultiStepCheckout() {
               <PaymentStep
                 name={name}
                 email={email}
+                finalAmount={finalAmount}
+                discountLabel={discountLabel}
                 error={error}
                 setError={setError}
               />

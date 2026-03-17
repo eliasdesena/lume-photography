@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
   if (event.type === "payment_intent.succeeded") {
     const paymentIntent = event.data.object as Stripe.PaymentIntent;
-    const { customer_name, customer_email, product_id } =
+    const { customer_name, customer_email, product_id, coupon_code, discount_amount, original_amount } =
       paymentIntent.metadata;
 
     if (!customer_email) {
@@ -132,7 +132,10 @@ export async function POST(request: NextRequest) {
         [Number(process.env.BREVO_STUDENTS_LIST_ID || 2)]
       );
 
-      console.log(`✓ Payment processed for ${customer_email} — user ${userId}`);
+      const couponInfo = coupon_code
+        ? ` (coupon: ${coupon_code}, saved: $${(Number(discount_amount || 0) / 100).toFixed(2)}, original: $${(Number(original_amount || 9700) / 100).toFixed(2)})`
+        : "";
+      console.log(`✓ Payment processed for ${customer_email} — user ${userId}${couponInfo}`);
     } catch (err) {
       console.error("Webhook processing error:", err);
       return NextResponse.json(
