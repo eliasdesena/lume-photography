@@ -7,7 +7,7 @@ function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) throw new Error("STRIPE_SECRET_KEY is not set");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return new Stripe(key, { apiVersion: "2025-11-17.clover" as any });
+  return new Stripe(key, { apiVersion: "2026-02-25.clover" as any });
 }
 
 export async function POST(request: NextRequest) {
