@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd ../.. && turbo run build --filter=@lume/app",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "installCommand": "cd ../.. && npm install"
+}
