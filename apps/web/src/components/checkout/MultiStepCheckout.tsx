@@ -249,6 +249,12 @@ export default function MultiStepCheckout() {
   const [finalAmount, setFinalAmount] = useState(BASE_PRICE);
   const [showCouponField, setShowCouponField] = useState(false);
 
+  // Existing account detection
+  const [existingAccount, setExistingAccount] = useState<{
+    hasEntitlement: boolean;
+    hasPassword: boolean;
+  } | null>(null);
+
   // Step 1 → 2: validate name
   function handleNameSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -306,7 +312,7 @@ export default function MultiStepCheckout() {
     setFinalAmount(BASE_PRICE);
   }
 
-  // Step 2 → 3: save lead + create PaymentIntent
+  // Step 2 → 3: save lead + create PaymentIntent (with existing account check)
   const handleEmailSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
@@ -316,9 +322,27 @@ export default function MultiStepCheckout() {
       }
 
       setError(null);
+      setExistingAccount(null);
       setLoading(true);
 
       try {
+        // Check if this email already has an account with the course
+        const checkRes = await fetch("/api/check-account", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        const checkData = await checkRes.json();
+
+        if (checkData.exists && checkData.hasEntitlement) {
+          setExistingAccount({
+            hasEntitlement: true,
+            hasPassword: checkData.hasPassword,
+          });
+          setLoading(false);
+          return;
+        }
+
         // Save lead (abandoned cart capture)
         await fetch("/api/leads", {
           method: "POST",
@@ -432,6 +456,26 @@ export default function MultiStepCheckout() {
                   <p className="text-error text-[12px] font-body mt-1.5">{error}</p>
                 )}
               </div>
+
+              {/* Existing account notice */}
+              {existingAccount?.hasEntitlement && (
+                <div className="bg-gold/5 border border-gold/20 rounded-[3px] px-4 py-4 space-y-3">
+                  <p className="text-cream text-sm font-body">
+                    You already have access to this course!
+                  </p>
+                  <p className="text-muted text-xs font-body leading-relaxed">
+                    {existingAccount.hasPassword
+                      ? "Sign in with your email and password to access your course."
+                      : "A sign-in link has been sent to your email. Check your inbox to access your course."}
+                  </p>
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_APP_URL || "https://app.lumephoto.co"}/login`}
+                    className="inline-block bg-gold text-obsidian font-body font-medium text-xs py-2.5 px-5 rounded-[3px] hover:bg-gold/90 transition-colors"
+                  >
+                    Go to sign in →
+                  </a>
+                </div>
+              )}
 
               {/* Coupon code section */}
               {!couponCode && !showCouponField && (

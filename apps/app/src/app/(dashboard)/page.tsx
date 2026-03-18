@@ -30,14 +30,9 @@ export default async function DashboardPage() {
   // Find the next incomplete lesson
   const nextLesson = allLessons.find((l) => !completedIds.has(l.id));
 
-  // Recent activity — last watched
-  const lastWatched = progress?.[0];
-  const lastWatchedLesson = lastWatched
-    ? allLessons.find((l) => l.id === lastWatched.lesson_id)
-    : null;
-
   const totalLessons = allLessons.length;
   const completedCount = completedIds.size;
+  const allComplete = completedCount === totalLessons && totalLessons > 0;
 
   return (
     <div className="space-y-10 pt-2">
@@ -49,20 +44,30 @@ export default async function DashboardPage() {
         <p className="font-body font-light text-muted text-sm">
           {completedCount === 0
             ? "Ready to start your photography journey?"
-            : completedCount === totalLessons
-            ? "You've completed all lessons. Incredible work!"
+            : allComplete
+            ? "You\u2019ve completed all lessons. Incredible work!"
             : `${completedCount} of ${totalLessons} lessons complete. Keep going!`}
         </p>
       </div>
 
+      {/* Course complete celebration */}
+      {allComplete && (
+        <div className="bg-gold/10 border border-gold/20 rounded-sm p-6 text-center">
+          <p className="font-display text-2xl text-gold mb-2">Course complete</p>
+          <p className="text-sm text-muted font-body">
+            You&apos;ve finished every lesson. Revisit any module below, or grab your downloads.
+          </p>
+        </div>
+      )}
+
       {/* Continue where you left off */}
       {nextLesson && (
-        <div className="bg-surface border border-hairline/40 rounded-sm p-6">
-          <p className="text-[10px] uppercase tracking-[0.08em] text-muted/70 font-body font-medium mb-3">
+        <div className="bg-surface border border-hairline rounded-sm p-6">
+          <p className="text-label text-muted mb-3">
             Continue learning
           </p>
           <h2 className="font-display text-lg mb-1">{nextLesson.title}</h2>
-          <p className="text-xs text-muted/60 font-body mb-4">
+          <p className="text-xs text-muted font-body mb-4">
             {nextLesson.moduleTitle} · {nextLesson.duration}
           </p>
           <Link
@@ -76,7 +81,7 @@ export default async function DashboardPage() {
 
       {/* Module grid */}
       <div>
-        <h2 className="text-[10px] uppercase tracking-[0.08em] text-muted/70 font-body font-medium mb-4">
+        <h2 className="text-label text-muted mb-4">
           Modules
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -92,10 +97,10 @@ export default async function DashboardPage() {
               <Link
                 key={mod.id}
                 href={`/lessons/${mod.lessons[0].slug}`}
-                className="group bg-surface border border-hairline/40 rounded-sm p-5 hover:border-hairline transition-colors"
+                className="group bg-surface border border-hairline rounded-sm p-5 hover:border-gold/20 transition-colors"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <span className="text-[10px] text-muted/60 font-body uppercase tracking-wider">
+                  <span className="text-label text-gold-dim">
                     Module {mod.number}
                   </span>
                   {modCompleted && (
@@ -105,20 +110,20 @@ export default async function DashboardPage() {
                 <h3 className="font-display text-base mb-2 group-hover:text-gold transition-colors">
                   {mod.title}
                 </h3>
-                <p className="text-xs text-muted/70 font-body font-light leading-relaxed mb-3 line-clamp-2">
+                <p className="text-xs text-muted font-body font-light leading-relaxed mb-3 line-clamp-2">
                   {mod.description}
                 </p>
-                <div className="flex items-center gap-2 text-[10px] text-muted/60 font-body">
+                <div className="flex items-center gap-2 text-[10px] text-muted/80 font-body">
                   <span>
                     {modProgress}/{mod.lessons.length} lessons
                   </span>
-                  <div className="flex-1 h-px bg-hairline/40" />
+                  <div className="flex-1 h-px bg-hairline" />
                   <span>
                     {mod.lessons.reduce(
-                      (acc, l) =>
-                        acc +
-                        parseInt(l.duration.split(":")[0]) * 60 +
-                        parseInt(l.duration.split(":")[1]),
+                      (acc, l) => {
+                        const parts = l.duration.split(":");
+                        return acc + (parseInt(parts[0] || "0") * 60) + parseInt(parts[1] || "0");
+                      },
                       0
                     )}{" "}
                     min
@@ -133,7 +138,7 @@ export default async function DashboardPage() {
       {/* Downloads quick link */}
       <Link
         href="/downloads"
-        className="flex items-center gap-4 bg-surface border border-hairline/40 rounded-sm p-5 hover:border-hairline transition-colors group"
+        className="flex items-center gap-4 bg-surface border border-hairline rounded-sm p-5 hover:border-gold/20 transition-colors group"
       >
         <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0">
           <svg
@@ -154,7 +159,7 @@ export default async function DashboardPage() {
           <h3 className="font-body text-sm text-cream group-hover:text-gold transition-colors">
             Downloads
           </h3>
-          <p className="text-xs text-muted/70 font-body">
+          <p className="text-xs text-muted font-body">
             Lightroom presets, monetization workbook
           </p>
         </div>

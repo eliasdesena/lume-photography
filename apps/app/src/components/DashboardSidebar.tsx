@@ -5,8 +5,6 @@ import Link from "next/link";
 import { WordmarkGradient } from "@lume/ui/logos";
 import { usePathname } from "next/navigation";
 import { createClient } from "@lume/supabase/client";
-import { AnimatePresence } from "motion/react";
-import AccountSettings from "./AccountSettings";
 import type { CourseModule } from "@lume/types";
 
 interface DashboardSidebarProps {
@@ -34,7 +32,6 @@ export default function DashboardSidebar({
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
@@ -85,7 +82,7 @@ export default function DashboardSidebar({
 
       {/* Progress bar */}
       <div className="px-6 pb-6">
-        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.08em] text-muted/60 font-body font-medium mb-2">
+        <div className="flex items-center justify-between text-label text-muted mb-2">
           <span>Progress</span>
           <span>
             {completedCount}/{totalLessons}
@@ -149,7 +146,7 @@ export default function DashboardSidebar({
         </Link>
 
         {/* Course modules */}
-        <div className="text-[10px] uppercase tracking-[0.08em] text-muted/60 font-body font-medium px-3 mb-2">
+        <div className="text-label text-muted/80 px-3 mb-2">
           Course
         </div>
         {courseModules.map((mod) => {
@@ -174,7 +171,7 @@ export default function DashboardSidebar({
                 >
                   {modCompleted ? "✓" : mod.number}
                 </span>
-                <span className="text-xs font-body text-muted/70 truncate">
+                <span className="text-xs font-body text-muted truncate">
                   {mod.title}
                 </span>
               </div>
@@ -189,15 +186,15 @@ export default function DashboardSidebar({
                       isActive
                         ? "bg-surface text-cream"
                         : isComplete
-                        ? "text-muted/60 hover:text-cream"
-                        : "text-muted/60 hover:text-cream"
+                        ? "text-muted hover:text-cream"
+                        : "text-muted/80 hover:text-cream"
                     }`}
                   >
                     {isComplete && (
                       <span className="text-gold text-[10px]">✓</span>
                     )}
                     <span className="truncate">{lesson.title}</span>
-                    <span className="ml-auto text-[10px] text-muted/30 shrink-0">
+                    <span className="ml-auto text-[10px] text-muted/60 shrink-0">
                       {lesson.duration}
                     </span>
                   </Link>
@@ -211,8 +208,8 @@ export default function DashboardSidebar({
       {/* User */}
       <div className="border-t border-hairline/40 px-4 py-4">
         <div className="flex items-center justify-between">
-          <button
-            onClick={() => setSettingsOpen(true)}
+          <Link
+            href="/settings"
             className="flex items-center gap-3 hover:bg-surface/50 rounded-sm px-1 py-1 -mx-1 transition-colors"
           >
             <div className="w-8 h-8 rounded-full bg-surface-2 flex items-center justify-center text-xs text-muted font-body">
@@ -221,7 +218,7 @@ export default function DashboardSidebar({
             <span className="text-xs font-body text-muted truncate max-w-[120px]">
               {displayName}
             </span>
-          </button>
+          </Link>
           <button
             onClick={handleSignOut}
             className="text-[11px] text-muted/60 hover:text-cream font-body uppercase tracking-wider transition-colors border border-hairline/40 hover:border-gold/30 rounded-sm px-3 py-1.5"
@@ -291,18 +288,6 @@ export default function DashboardSidebar({
       {/* Mobile top padding */}
       <div className="lg:hidden h-16" />
 
-      {/* Account settings panel */}
-      <AnimatePresence>
-        {settingsOpen && (
-          <AccountSettings
-            displayName={displayName}
-            email={email}
-            userId={userId}
-            onClose={() => setSettingsOpen(false)}
-            onSignOut={handleSignOut}
-          />
-        )}
-      </AnimatePresence>
     </>
   );
 }
