@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     }
 
     const name = customer_name || customer_email.split("@")[0];
-    const productId = product_id || "lume-core";
+    const productId = product_id || "prod_U9zCzd0tuKoOuU";
 
     const supabase = createAdminClient();
 

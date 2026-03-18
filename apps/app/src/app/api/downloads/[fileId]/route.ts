@@ -23,7 +23,7 @@ export async function GET(
     .from("entitlements")
     .select("id")
     .eq("user_id", user.id)
-    .eq("product_id", "lume-core")
+    .eq("product_id", "prod_U9zCzd0tuKoOuU")
     .single();
 
   if (!entitlement) {

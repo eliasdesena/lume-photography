@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       currency: "usd",
       metadata: {
         product: "lume-iphone-photography-course",
-        product_id: "lume-core",
+        product_id: "prod_U9zCzd0tuKoOuU",
         ...(name && { customer_name: name }),
         ...(email && { customer_email: email }),
         ...(appliedCouponCode && { coupon_code: appliedCouponCode }),

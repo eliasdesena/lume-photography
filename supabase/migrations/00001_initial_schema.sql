@@ -28,7 +28,7 @@ create policy "Users can update own profile"
 create table public.entitlements (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references public.profiles(id) on delete cascade not null,
-  product_id text not null default 'lume-core',
+  product_id text not null default 'prod_U9zCzd0tuKoOuU',
   stripe_payment_intent_id text,
   granted_at timestamptz default now(),
   unique(user_id, product_id)
@@ -114,6 +114,6 @@ create policy "Entitled users can download"
     bucket_id = 'downloads'
     and auth.uid() in (
       select user_id from public.entitlements
-      where product_id = 'lume-core'
+      where product_id = 'prod_U9zCzd0tuKoOuU'
     )
   );
