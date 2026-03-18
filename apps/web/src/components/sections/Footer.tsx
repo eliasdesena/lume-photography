@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { WordmarkGradient } from "@lume/ui/logos";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -10,13 +10,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Left: wordmark */}
           <a href="/" className="opacity-60 hover:opacity-80 transition-opacity" aria-label="LUMÉ home">
-            <Image
-              src="/images/wordmark-gradient.svg"
-              alt="LUMÉ"
-              width={160}
-              height={40}
-              className="h-11 w-auto"
-            />
+            <WordmarkGradient className="h-11 w-auto" />
           </a>
 
           {/* Center: links */}

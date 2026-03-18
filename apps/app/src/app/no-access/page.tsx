@@ -1,16 +1,10 @@
-import Image from "next/image";
+import { WordmarkGradient } from "@lume/ui/logos";
 
 export default function NoAccessPage() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="w-full max-w-sm text-center">
-        <Image
-          src="/images/wordmark-gradient.svg"
-          alt="LUMÉ"
-          width={140}
-          height={46}
-          className="h-9 w-auto mx-auto mb-8"
-        />
+        <WordmarkGradient className="h-9 w-auto mx-auto mb-8" />
         <div className="w-12 h-12 rounded-full bg-error/10 border border-error/20 flex items-center justify-center mx-auto mb-6">
           <svg
             width="20"

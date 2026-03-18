@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import Image from "next/image";
+import { WordmarkGradient } from "@lume/ui/logos";
 import { CheckCircle, Shield, Star } from "lucide-react";
 import { includes } from "@/data/includes";
 
@@ -35,13 +35,7 @@ export default function CheckoutPage() {
             className="inline-block mb-10"
             aria-label="LUMÉ home"
           >
-            <Image
-              src="/images/wordmark-gradient.svg"
-              alt="LUMÉ"
-              width={180}
-              height={44}
-              className="h-12 w-auto"
-            />
+            <WordmarkGradient className="h-12 w-auto" />
           </a>
 
           <h1 className="font-display text-3xl sm:text-4xl text-cream mb-2">

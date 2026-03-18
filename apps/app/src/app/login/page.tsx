@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createClient } from "@lume/supabase/client";
-import Image from "next/image";
+import { WordmarkGradient } from "@lume/ui/logos";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -88,14 +88,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">
-          <Image
-            src="/images/wordmark-gradient.svg"
-            alt="LUMÉ"
-            width={160}
-            height={52}
-            className="h-10 w-auto mb-4"
-            priority
-          />
+          <WordmarkGradient className="h-10 w-auto mb-4" />
           <p className="font-body font-light text-muted text-sm">
             Sign in to your course
           </p>

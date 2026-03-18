@@ -5,6 +5,7 @@
   "exports": {
     "./button": "./src/Button.tsx",
     "./cn": "./src/cn.ts",
+    "./logos": "./src/logos.tsx",
     "./motion": "./src/motion.ts"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { WordmarkGradient } from "@lume/ui/logos";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -42,17 +42,11 @@ export default function StickyNav() {
       className="fixed top-6 left-4 right-4 z-50 pointer-events-none"
     >
       <div className="max-w-content mx-auto">
-        <div className="pointer-events-auto flex items-center justify-between pl-5 pr-1.5 py-1.5 rounded-full bg-obsidian/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+        <div className="pointer-events-auto flex items-center justify-between pl-5 pr-1.5 py-3 rounded-full bg-obsidian/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 
           {/* Logo — always visible */}
           <a href="/" aria-label="LUMÉ home" className="hover:opacity-75 transition-opacity duration-200 flex items-center">
-            <Image
-              src="/images/wordmark-gradient.svg"
-              alt="LUMÉ"
-              width={120}
-              height={40}
-              className="h-6 sm:h-7 w-auto"
-            />
+            <WordmarkGradient className="h-6 sm:h-7 w-auto" />
           </a>
 
           {/* CTA — pill button */}
