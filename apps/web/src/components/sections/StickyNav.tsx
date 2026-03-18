@@ -42,11 +42,11 @@ export default function StickyNav() {
       className="fixed top-6 left-4 right-4 z-50 pointer-events-none"
     >
       <div className="max-w-content mx-auto">
-        <div className="pointer-events-auto flex items-stretch justify-between pl-5 pr-1.5 py-1.5 rounded-full bg-obsidian/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+        <div className="pointer-events-auto flex items-stretch justify-between pl-5 pr-2 py-2 rounded-full bg-obsidian/80 backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
 
           {/* Logo — always visible */}
           <a href="/" aria-label="LUMÉ home" className="hover:opacity-75 transition-opacity duration-200 flex items-center">
-            <WordmarkGradient className="h-6 sm:h-7 w-auto" />
+            <WordmarkGradient className="h-8 sm:h-10 w-auto" />
           </a>
 
           {/* CTA — pill button */}
