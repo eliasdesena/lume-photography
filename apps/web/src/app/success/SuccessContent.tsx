@@ -5,7 +5,13 @@ import { checkmarkDraw } from "@/lib/motion";
 import Button from "@/components/ui/Button";
 import { course } from "@/config/course";
 
-export default function SuccessContent() {
+interface SuccessContentProps {
+  accessLink: string | null;
+}
+
+export default function SuccessContent({ accessLink }: SuccessContentProps) {
+  const courseUrl = accessLink || `${process.env.NEXT_PUBLIC_APP_URL || "https://app.lumephoto.co"}/login`;
+
   return (
     <main className="min-h-screen flex items-center justify-center px-6 py-20">
       <div className="max-w-card mx-auto text-center">
@@ -52,7 +58,7 @@ export default function SuccessContent() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.65, duration: 0.6 }}
         >
-          Your access link is on its way to your inbox.
+          Welcome to LUMÉ. Your access is ready.
         </motion.p>
 
         <motion.div
@@ -62,30 +68,33 @@ export default function SuccessContent() {
           transition={{ delay: 0.8, duration: 0.6 }}
         >
           <p>
-            Welcome to LUMÉ. You now have lifetime access to all five modules,
-            the Lightroom preset pack, the monetization workbook, and the
-            private student community. Check your email for your personal
-            access link.
+            You now have lifetime access to all five modules, the Lightroom
+            preset pack, the monetization workbook, and the private student
+            community.
           </p>
           <p className="mt-4 text-gold-dim">— {course.instructorName}</p>
         </motion.div>
 
         <motion.div
+          className="flex flex-col sm:flex-row gap-3 justify-center items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.95, duration: 0.6 }}
         >
+          <Button href={courseUrl}>
+            Access your course →
+          </Button>
           <Button
+            variant="ghost"
             href={`https://instagram.com/${course.instagramHandle}`}
-            className="mb-8"
           >
-            Follow LUMÉ on Instagram →
+            Follow LUMÉ on Instagram
           </Button>
         </motion.div>
 
         {/* Upsell card */}
         <motion.div
-          className="bg-surface border border-hairline rounded p-8 text-left mt-8"
+          className="bg-surface border border-hairline rounded p-8 text-left mt-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.6 }}
