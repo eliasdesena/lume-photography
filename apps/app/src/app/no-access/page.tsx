@@ -22,7 +22,7 @@ export default function NoAccessPage() {
           You don&apos;t have access to the LUMÉ course yet. Purchase the course to get started.
         </p>
         <a
-          href="https://lumephotos.co/checkout"
+          href="https://lumephoto.co/checkout"
           className="inline-flex items-center justify-center bg-gold text-obsidian px-8 py-3.5 text-sm uppercase tracking-[0.06em] font-body font-medium hover:bg-cream transition-colors duration-200"
         >
           Get access →

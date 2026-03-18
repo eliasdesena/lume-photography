@@ -108,12 +108,12 @@ export async function POST(request: NextRequest) {
           redirectTo:
             process.env.NEXT_PUBLIC_APP_URL
               ? `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`
-              : "https://app.lumephotos.co/auth/callback",
+              : "https://app.lumephoto.co/auth/callback",
         },
       });
 
       const magicLink =
-        linkData?.properties?.action_link || "https://app.lumephotos.co/login";
+        linkData?.properties?.action_link || "https://app.lumephoto.co/login";
 
       // 5. Send welcome email via Brevo
       await sendTransactionalEmail({
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
         params: {
           name,
           magic_link: magicLink,
-          app_url: process.env.NEXT_PUBLIC_APP_URL || "https://app.lumephotos.co",
+          app_url: process.env.NEXT_PUBLIC_APP_URL || "https://app.lumephoto.co",
         },
       });
 
