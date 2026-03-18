@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { createClient } from "@lume/supabase/client";
 import type { CourseModule } from "@lume/types";
@@ -38,8 +39,14 @@ export default function DashboardSidebar({
     <>
       {/* Logo */}
       <div className="px-6 pt-6 pb-4">
-        <Link href="/" className="font-display text-xl text-cream">
-          LUMÉ
+        <Link href="/" className="hover:opacity-80 transition-opacity duration-200">
+          <Image
+            src="/images/wordmark-gradient.svg"
+            alt="LUMÉ"
+            width={120}
+            height={40}
+            className="h-7 w-auto"
+          />
         </Link>
       </div>
 
@@ -200,8 +207,14 @@ export default function DashboardSidebar({
       {/* Mobile header + hamburger */}
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur-md border-b border-hairline/40">
         <div className="flex items-center justify-between px-4 py-3">
-          <Link href="/" className="font-display text-lg text-cream">
-            LUMÉ
+          <Link href="/" className="hover:opacity-80 transition-opacity duration-200">
+            <Image
+              src="/images/wordmark-gradient.svg"
+              alt="LUMÉ"
+              width={100}
+              height={32}
+              className="h-6 w-auto"
+            />
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}

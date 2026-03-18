@@ -87,8 +87,15 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         {/* Logo */}
-        <div className="text-center mb-10">
-          <h1 className="font-display text-3xl mb-2">LUMÉ</h1>
+        <div className="flex flex-col items-center mb-10">
+          <Image
+            src="/images/wordmark-gradient.svg"
+            alt="LUMÉ"
+            width={160}
+            height={52}
+            className="h-10 w-auto mb-4"
+            priority
+          />
           <p className="font-body font-light text-muted text-sm">
             Sign in to your course
           </p>
