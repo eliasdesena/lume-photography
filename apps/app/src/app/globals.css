@@ -10,7 +10,7 @@
   --cream: #F2E8CC;
   --gold: #C8A45A;
   --gold-dim: #8A7040;
-  --muted: #6E6455;
+  --muted: #9A8B7A;
   --error: #E05A5A;
 }
 
@@ -21,11 +21,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    overscroll-behavior-x: none;
   }
 
   body {
     font-family: var(--font-dm-sans), sans-serif;
     background-color: var(--obsidian);
+    overscroll-behavior-x: none;
   }
 
   ::selection {

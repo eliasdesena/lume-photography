@@ -43,6 +43,8 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
+import InstallPrompt from "@/components/InstallPrompt";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,6 +57,7 @@ export default function RootLayout({
       </head>
       <body className="bg-obsidian text-cream font-body antialiased">
         {children}
+        <InstallPrompt />
       </body>
     </html>
   );

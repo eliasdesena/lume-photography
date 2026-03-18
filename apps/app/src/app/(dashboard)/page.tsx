@@ -58,7 +58,7 @@ export default async function DashboardPage() {
       {/* Continue where you left off */}
       {nextLesson && (
         <div className="bg-surface border border-hairline/40 rounded-sm p-6">
-          <p className="text-[10px] uppercase tracking-[0.08em] text-muted/50 font-body font-medium mb-3">
+          <p className="text-[10px] uppercase tracking-[0.08em] text-muted/70 font-body font-medium mb-3">
             Continue learning
           </p>
           <h2 className="font-display text-lg mb-1">{nextLesson.title}</h2>
@@ -76,7 +76,7 @@ export default async function DashboardPage() {
 
       {/* Module grid */}
       <div>
-        <h2 className="text-[10px] uppercase tracking-[0.08em] text-muted/50 font-body font-medium mb-4">
+        <h2 className="text-[10px] uppercase tracking-[0.08em] text-muted/70 font-body font-medium mb-4">
           Modules
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -95,7 +95,7 @@ export default async function DashboardPage() {
                 className="group bg-surface border border-hairline/40 rounded-sm p-5 hover:border-hairline transition-colors"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <span className="text-[10px] text-muted/40 font-body uppercase tracking-wider">
+                  <span className="text-[10px] text-muted/60 font-body uppercase tracking-wider">
                     Module {mod.number}
                   </span>
                   {modCompleted && (
@@ -105,10 +105,10 @@ export default async function DashboardPage() {
                 <h3 className="font-display text-base mb-2 group-hover:text-gold transition-colors">
                   {mod.title}
                 </h3>
-                <p className="text-xs text-muted/50 font-body font-light leading-relaxed mb-3 line-clamp-2">
+                <p className="text-xs text-muted/70 font-body font-light leading-relaxed mb-3 line-clamp-2">
                   {mod.description}
                 </p>
-                <div className="flex items-center gap-2 text-[10px] text-muted/40 font-body">
+                <div className="flex items-center gap-2 text-[10px] text-muted/60 font-body">
                   <span>
                     {modProgress}/{mod.lessons.length} lessons
                   </span>
@@ -154,7 +154,7 @@ export default async function DashboardPage() {
           <h3 className="font-body text-sm text-cream group-hover:text-gold transition-colors">
             Downloads
           </h3>
-          <p className="text-xs text-muted/50 font-body">
+          <p className="text-xs text-muted/70 font-body">
             Lightroom presets, monetization workbook
           </p>
         </div>

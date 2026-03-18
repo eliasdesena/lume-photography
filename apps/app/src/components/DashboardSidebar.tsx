@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { WordmarkGradient } from "@lume/ui/logos";
 import { usePathname } from "next/navigation";
 import { createClient } from "@lume/supabase/client";
+import { AnimatePresence } from "motion/react";
+import AccountSettings from "./AccountSettings";
 import type { CourseModule } from "@lume/types";
 
 interface DashboardSidebarProps {
   displayName: string;
   avatarUrl: string | null;
+  email: string;
+  userId: string;
   courseModules: CourseModule[];
   completedLessons: Set<string>;
   progressPct: number;
@@ -20,6 +24,8 @@ interface DashboardSidebarProps {
 export default function DashboardSidebar({
   displayName,
   avatarUrl,
+  email,
+  userId,
   courseModules,
   completedLessons,
   progressPct,
@@ -28,6 +34,39 @@ export default function DashboardSidebar({
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const touchStartX = useRef(0);
+  const touchStartY = useRef(0);
+
+  // Swipe right from left edge to open sidebar, swipe left to close
+  const handleGlobalTouchStart = useCallback((e: TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleGlobalTouchEnd = useCallback((e: TouchEvent) => {
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+    // Only trigger if horizontal swipe is dominant
+    if (Math.abs(deltaX) < 60 || Math.abs(deltaY) > Math.abs(deltaX)) return;
+
+    if (deltaX > 0 && touchStartX.current < 40 && !mobileOpen) {
+      setMobileOpen(true);
+    } else if (deltaX < 0 && mobileOpen) {
+      setMobileOpen(false);
+    }
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    // Only for mobile
+    if (window.innerWidth >= 1024) return;
+    document.addEventListener("touchstart", handleGlobalTouchStart, { passive: true });
+    document.addEventListener("touchend", handleGlobalTouchEnd, { passive: true });
+    return () => {
+      document.removeEventListener("touchstart", handleGlobalTouchStart);
+      document.removeEventListener("touchend", handleGlobalTouchEnd);
+    };
+  }, [handleGlobalTouchStart, handleGlobalTouchEnd]);
 
   async function handleSignOut() {
     const supabase = createClient();
@@ -38,9 +77,9 @@ export default function DashboardSidebar({
   const sidebarContent = (
     <>
       {/* Logo */}
-      <div className="px-6 pt-6 pb-4">
+      <div className="px-6 pt-8 pb-6">
         <Link href="/" className="hover:opacity-80 transition-opacity duration-200">
-          <WordmarkGradient className="h-7 w-auto" />
+          <WordmarkGradient className="h-10 w-auto" />
         </Link>
       </div>
 
@@ -110,7 +149,7 @@ export default function DashboardSidebar({
         </Link>
 
         {/* Course modules */}
-        <div className="text-[10px] uppercase tracking-[0.08em] text-muted/40 font-body font-medium px-3 mb-2">
+        <div className="text-[10px] uppercase tracking-[0.08em] text-muted/60 font-body font-medium px-3 mb-2">
           Course
         </div>
         {courseModules.map((mod) => {
@@ -130,7 +169,7 @@ export default function DashboardSidebar({
                       ? "bg-gold/20 border-gold/40 text-gold"
                       : modStarted
                       ? "bg-surface border-hairline text-muted"
-                      : "bg-transparent border-hairline/60 text-muted/40"
+                      : "bg-transparent border-hairline/60 text-muted/60"
                   }`}
                 >
                   {modCompleted ? "✓" : mod.number}
@@ -151,7 +190,7 @@ export default function DashboardSidebar({
                         ? "bg-surface text-cream"
                         : isComplete
                         ? "text-muted/60 hover:text-cream"
-                        : "text-muted/40 hover:text-cream"
+                        : "text-muted/60 hover:text-cream"
                     }`}
                   >
                     {isComplete && (
@@ -172,17 +211,20 @@ export default function DashboardSidebar({
       {/* User */}
       <div className="border-t border-hairline/40 px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSettingsOpen(true)}
+            className="flex items-center gap-3 hover:bg-surface/50 rounded-sm px-1 py-1 -mx-1 transition-colors"
+          >
             <div className="w-8 h-8 rounded-full bg-surface-2 flex items-center justify-center text-xs text-muted font-body">
               {displayName.charAt(0).toUpperCase()}
             </div>
             <span className="text-xs font-body text-muted truncate max-w-[120px]">
               {displayName}
             </span>
-          </div>
+          </button>
           <button
             onClick={handleSignOut}
-            className="text-[10px] text-muted/40 hover:text-cream font-body uppercase tracking-wider transition-colors"
+            className="text-[11px] text-muted/60 hover:text-cream font-body uppercase tracking-wider transition-colors border border-hairline/40 hover:border-gold/30 rounded-sm px-3 py-1.5"
           >
             Sign out
           </button>
@@ -202,7 +244,7 @@ export default function DashboardSidebar({
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur-md border-b border-hairline/40">
         <div className="flex items-center justify-between px-4 py-3">
           <Link href="/" className="hover:opacity-80 transition-opacity duration-200">
-            <WordmarkGradient className="h-6 w-auto" />
+            <WordmarkGradient className="h-9 w-auto" />
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -247,7 +289,20 @@ export default function DashboardSidebar({
       )}
 
       {/* Mobile top padding */}
-      <div className="lg:hidden h-14" />
+      <div className="lg:hidden h-16" />
+
+      {/* Account settings panel */}
+      <AnimatePresence>
+        {settingsOpen && (
+          <AccountSettings
+            displayName={displayName}
+            email={email}
+            userId={userId}
+            onClose={() => setSettingsOpen(false)}
+            onSignOut={handleSignOut}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }

@@ -2,7 +2,7 @@ import { updateSession } from "@lume/supabase/middleware";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const publicPaths = ["/login", "/auth/callback", "/auth/setup", "/no-access"];
+const publicPaths = ["/auth/callback", "/auth/setup", "/no-access"];
 
 export async function middleware(request: NextRequest) {
   // Always refresh the session first
@@ -10,12 +10,12 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  // Allow public paths through
+  // Allow public paths through without auth check
   if (publicPaths.some((p) => pathname.startsWith(p))) {
     return response;
   }
 
-  // Check auth
+  // Create Supabase client for auth check
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
@@ -39,6 +39,14 @@ export async function middleware(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // If on /login and already authenticated, redirect to dashboard
+  if (pathname === "/login") {
+    if (user) {
+      return NextResponse.redirect(new URL("/", request.url));
+    }
+    return response;
+  }
 
   if (!user) {
     const loginUrl = new URL("/login", request.url);

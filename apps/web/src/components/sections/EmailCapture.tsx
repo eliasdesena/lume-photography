@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,9 @@ export default function EmailCapture() {
   const [dismissed, setDismissed] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const dragStartY = useRef(0);
+  const currentY = useRef(0);
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
 
@@ -29,11 +32,9 @@ export default function EmailCapture() {
     setIsMobile(mobile);
 
     if (mobile) {
-      // Fullscreen popup after 3 minutes
       const timer = setTimeout(() => setShow(true), 3 * 60 * 1000);
       return () => clearTimeout(timer);
     } else {
-      // Desktop: bottom-right card at 55% scroll depth
       const handleScroll = () => {
         const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
         if (pct > 0.55) {
@@ -51,6 +52,38 @@ export default function EmailCapture() {
     setDismissed(true);
     sessionStorage.setItem("lume-email-dismissed", "1");
   };
+
+  // Swipe-to-dismiss handlers for mobile bottom sheet
+  function handleTouchStart(e: React.TouchEvent) {
+    dragStartY.current = e.touches[0].clientY;
+    currentY.current = 0;
+    if (sheetRef.current) {
+      sheetRef.current.style.transition = "none";
+    }
+  }
+
+  function handleTouchMove(e: React.TouchEvent) {
+    const deltaY = e.touches[0].clientY - dragStartY.current;
+    currentY.current = Math.max(0, deltaY); // Only allow dragging down
+    if (sheetRef.current) {
+      sheetRef.current.style.transform = `translateY(${currentY.current}px)`;
+    }
+  }
+
+  function handleTouchEnd() {
+    if (sheetRef.current) {
+      sheetRef.current.style.transition = "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)";
+      if (currentY.current > 100) {
+        // Swiped far enough — dismiss
+        sheetRef.current.style.transform = "translateY(100%)";
+        setTimeout(dismiss, 300);
+      } else {
+        // Snap back
+        sheetRef.current.style.transform = "translateY(0)";
+      }
+    }
+    currentY.current = 0;
+  }
 
   const onSubmit = async (data: FormData) => {
     try {
@@ -123,11 +156,15 @@ export default function EmailCapture() {
               />
               {/* Sheet */}
               <motion.div
+                ref={sheetRef}
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="relative w-full bg-surface border-t border-hairline/60 rounded-t-3xl p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] shadow-2xl"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               >
                 {/* Handle */}
                 <div className="w-10 h-1 bg-muted/20 rounded-full mx-auto mb-6" />

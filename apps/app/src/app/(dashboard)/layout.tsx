@@ -1,7 +1,8 @@
 import { createClient } from "@lume/supabase/server";
 import { courseModules } from "@/data/course";
-import Link from "next/link";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import WelcomeTour from "@/components/WelcomeTour";
+import PageTransition from "@/components/PageTransition";
 
 export default async function DashboardLayout({
   children,
@@ -43,6 +44,8 @@ export default async function DashboardLayout({
       <DashboardSidebar
         displayName={profile?.display_name ?? "Student"}
         avatarUrl={profile?.avatar_url}
+        email={user!.email ?? ""}
+        userId={user!.id}
         courseModules={courseModules}
         completedLessons={completedLessons}
         progressPct={progressPct}
@@ -52,8 +55,11 @@ export default async function DashboardLayout({
 
       {/* Main content */}
       <main className="flex-1 min-h-screen lg:pl-72">
-        <div className="max-w-4xl mx-auto px-6 py-8">{children}</div>
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          <PageTransition>{children}</PageTransition>
+        </div>
       </main>
+      <WelcomeTour />
     </div>
   );
 }
