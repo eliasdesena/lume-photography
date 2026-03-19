@@ -45,10 +45,22 @@ export default function LessonPlayer({
     [lessonId, completed, supabase]
   );
 
-  async function handleMarkComplete() {
+  async function handleToggleComplete() {
     setSaving(true);
-    setCompleted(true);
-    await saveProgress(0, true);
+    const newState = !completed;
+    setCompleted(newState);
+
+    const userId = (await supabase.auth.getUser()).data.user!.id;
+    await supabase.from("course_progress").upsert(
+      {
+        user_id: userId,
+        lesson_id: lessonId,
+        progress_seconds: 0,
+        completed: newState,
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: "user_id,lesson_id" }
+    );
     setSaving(false);
   }
 
@@ -71,18 +83,17 @@ export default function LessonPlayer({
           <p className="text-xs text-muted/40 font-body">
             Video coming soon
           </p>
-          {!completed && (
-            <button
-              onClick={handleMarkComplete}
-              disabled={saving}
-              className="mt-4 bg-gold/10 text-gold border border-gold/20 px-4 py-2 text-xs font-body font-medium hover:bg-gold/20 transition-colors disabled:opacity-50"
-            >
-              {saving ? "Saving..." : "Mark as complete"}
-            </button>
-          )}
-          {completed && (
-            <p className="mt-4 text-gold text-xs font-body">✓ Completed</p>
-          )}
+          <button
+            onClick={handleToggleComplete}
+            disabled={saving}
+            className={`mt-4 px-4 py-2 text-xs font-body font-medium transition-colors disabled:opacity-50 rounded-sm press-scale ${
+              completed
+                ? "text-gold hover:text-muted"
+                : "bg-gold/10 text-gold border border-gold/20 hover:bg-gold/20"
+            }`}
+          >
+            {saving ? "Saving..." : completed ? "✓ Completed — undo?" : "Mark as complete"}
+          </button>
         </div>
       </div>
     );
@@ -112,18 +123,17 @@ export default function LessonPlayer({
         />
       </div>
 
-      {!completed && (
-        <button
-          onClick={handleMarkComplete}
-          disabled={saving}
-          className="text-xs text-muted/50 hover:text-gold font-body transition-colors"
-        >
-          {saving ? "Saving..." : "Mark as complete"}
-        </button>
-      )}
-      {completed && (
-        <p className="text-gold text-xs font-body">✓ Lesson complete</p>
-      )}
+      <button
+        onClick={handleToggleComplete}
+        disabled={saving}
+        className={`text-xs font-body transition-colors press-scale ${
+          completed
+            ? "text-gold hover:text-muted"
+            : "text-muted/50 hover:text-gold"
+        }`}
+      >
+        {saving ? "Saving..." : completed ? "✓ Lesson complete — undo?" : "Mark as complete"}
+      </button>
     </div>
   );
 }

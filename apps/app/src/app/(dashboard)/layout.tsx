@@ -57,10 +57,10 @@ export default async function DashboardLayout({
       {/* Main scrollable area */}
       <main className="flex-1 h-full lg:pl-72">
         <div id="app-scroll">
-          {/* Mobile top spacer for header bar */}
-          <div className="lg:hidden h-14" />
+          {/* Mobile top spacer for header bar (h-14 + safe-area-inset-top for PWA) */}
+          <div className="lg:hidden" style={{ height: "calc(3.5rem + env(safe-area-inset-top, 0px))" }} />
 
-          <div className="max-w-4xl mx-auto px-5 sm:px-6 py-6 sm:py-8 pb-tab-safe lg:pb-8">
+          <div className="max-w-4xl mx-auto px-5 sm:px-6 py-6 sm:py-8 pb-tab-safe lg:pb-8 overflow-x-hidden">
             <PageTransition>{children}</PageTransition>
           </div>
         </div>

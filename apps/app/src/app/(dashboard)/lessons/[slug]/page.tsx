@@ -94,40 +94,47 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </p>
       </div>
 
-      {/* Prev / Next navigation — bigger touch targets */}
-      <div className="flex items-stretch gap-3 pt-4 border-t border-hairline/40">
-        {prevLesson ? (
-          <Link
-            href={`/lessons/${prevLesson.slug}`}
-            prefetch={true}
-            className="flex-1 bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group"
-          >
-            <p className="text-[10px] text-muted/60 font-body uppercase tracking-wider mb-1">Previous</p>
-            <p className="text-sm font-body text-muted group-hover:text-cream transition-colors truncate">
-              {prevLesson.title}
-            </p>
-          </Link>
-        ) : (
-          <div className="flex-1" />
-        )}
+      {/* Prev / Next navigation */}
+      <div className="flex flex-col gap-2 pt-4 border-t border-hairline/40">
         {nextLesson ? (
           <Link
             href={`/lessons/${nextLesson.slug}`}
             prefetch={true}
-            className="flex-1 bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group text-right"
+            className="flex items-center justify-between bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group"
           >
-            <p className="text-[10px] text-muted/60 font-body uppercase tracking-wider mb-1">Next</p>
-            <p className="text-sm font-body text-muted group-hover:text-cream transition-colors truncate">
-              {nextLesson.title}
-            </p>
+            <div className="min-w-0 mr-3">
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-wider mb-0.5">Next lesson</p>
+              <p className="text-sm font-body text-cream group-hover:text-gold transition-colors truncate">
+                {nextLesson.title}
+              </p>
+            </div>
+            <span className="text-muted/40 shrink-0">→</span>
           </Link>
         ) : (
           <Link
             href="/"
-            className="flex-1 bg-gold/10 border border-gold/20 rounded-sm px-4 py-3.5 press-scale hover:bg-gold/15 transition-colors text-right"
+            className="flex items-center justify-between bg-gold/10 border border-gold/20 rounded-sm px-4 py-3.5 press-scale hover:bg-gold/15 transition-colors"
           >
-            <p className="text-[10px] text-gold/60 font-body uppercase tracking-wider mb-1">Complete</p>
-            <p className="text-sm font-body text-gold">Back to dashboard</p>
+            <div>
+              <p className="text-[10px] text-gold/60 font-body uppercase tracking-wider mb-0.5">All done</p>
+              <p className="text-sm font-body text-gold">Back to dashboard</p>
+            </div>
+            <span className="text-gold/40 shrink-0">→</span>
+          </Link>
+        )}
+        {prevLesson && (
+          <Link
+            href={`/lessons/${prevLesson.slug}`}
+            prefetch={true}
+            className="flex items-center bg-surface/50 border border-hairline/40 rounded-sm px-4 py-3 press-scale hover:border-gold/20 transition-colors group"
+          >
+            <span className="text-muted/40 shrink-0 mr-3">←</span>
+            <div className="min-w-0">
+              <p className="text-[10px] text-muted/60 font-body uppercase tracking-wider mb-0.5">Previous</p>
+              <p className="text-xs font-body text-muted group-hover:text-cream transition-colors truncate">
+                {prevLesson.title}
+              </p>
+            </div>
           </Link>
         )}
       </div>
