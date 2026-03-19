@@ -115,8 +115,8 @@ export default function DashboardSidebar({
 
             return (
               <div key={mod.id} className="mb-2">
-                <div className="flex items-center gap-2 px-3 py-1.5">
-                  <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-body font-medium border ${
+                <div className="flex items-center gap-2 px-3 py-1.5 overflow-hidden">
+                  <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[8px] font-body font-medium border shrink-0 ${
                     modCompleted
                       ? "bg-gold/20 border-gold/40 text-gold"
                       : modStarted
@@ -125,7 +125,7 @@ export default function DashboardSidebar({
                   }`}>
                     {modCompleted ? "✓" : mod.number}
                   </span>
-                  <span className="text-xs font-body text-muted truncate">{mod.title}</span>
+                  <span className="text-xs font-body text-muted truncate min-w-0">{mod.title}</span>
                 </div>
                 {mod.lessons.map((lesson) => {
                   const isActive = pathname === `/lessons/${lesson.slug}`;
@@ -135,7 +135,7 @@ export default function DashboardSidebar({
                       key={lesson.id}
                       href={`/lessons/${lesson.slug}`}
                       prefetch={true}
-                      className={`flex items-center gap-2 pl-9 pr-3 py-1.5 text-xs font-body transition-colors rounded-sm ${
+                      className={`flex items-center gap-2 pl-9 pr-3 py-1.5 text-xs font-body transition-colors rounded-sm overflow-hidden ${
                         isActive
                           ? "bg-surface text-cream"
                           : isComplete
@@ -143,8 +143,8 @@ export default function DashboardSidebar({
                           : "text-muted/80 hover:text-cream"
                       }`}
                     >
-                      {isComplete && <span className="text-gold text-[10px]">✓</span>}
-                      <span className="truncate">{lesson.title}</span>
+                      {isComplete && <span className="text-gold text-[10px] shrink-0">✓</span>}
+                      <span className="truncate min-w-0">{lesson.title}</span>
                       <span className="ml-auto text-[10px] text-muted/60 shrink-0">{lesson.duration}</span>
                     </Link>
                   );
