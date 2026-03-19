@@ -135,12 +135,12 @@ export default function SettingsClient({
   );
 
   return (
-    <div className="max-w-2xl">
+    <div className="max-w-2xl pb-tab-safe lg:pb-0">
       {/* Header */}
       <div className="mb-8">
         <Link
           href="/"
-          className="text-muted hover:text-cream text-xs font-body transition-colors"
+          className="text-muted hover:text-cream text-xs font-body transition-colors press-scale inline-block"
         >
           ← Back to dashboard
         </Link>

@@ -91,7 +91,7 @@ export default function LoginPage() {
   // Confirmation screens
   if (step === "magic-sent" || step === "reset-sent") {
     return (
-      <div className="min-h-screen flex items-center justify-center px-6">
+      <div className="h-full overflow-y-auto flex items-center justify-center px-6">
         <div className="w-full max-w-sm text-center">
           <div className="w-12 h-12 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mx-auto mb-6">
             <svg
@@ -128,7 +128,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6">
+    <div className="h-full overflow-y-auto flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">

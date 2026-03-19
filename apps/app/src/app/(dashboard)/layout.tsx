@@ -1,6 +1,7 @@
 import { createClient } from "@lume/supabase/server";
 import { courseModules } from "@/data/course";
 import DashboardSidebar from "@/components/DashboardSidebar";
+import BottomTabBar from "@/components/BottomTabBar";
 import WelcomeTour from "@/components/WelcomeTour";
 import PageTransition from "@/components/PageTransition";
 
@@ -39,8 +40,8 @@ export default async function DashboardLayout({
     totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
   return (
-    <div className="min-h-screen flex">
-      {/* Desktop Sidebar */}
+    <div className="h-full flex">
+      {/* Desktop Sidebar — hidden on mobile */}
       <DashboardSidebar
         displayName={profile?.display_name ?? "Student"}
         avatarUrl={profile?.avatar_url}
@@ -53,12 +54,21 @@ export default async function DashboardLayout({
         totalLessons={totalLessons}
       />
 
-      {/* Main content */}
-      <main className="flex-1 min-h-screen lg:pl-72">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <PageTransition>{children}</PageTransition>
+      {/* Main scrollable area */}
+      <main className="flex-1 h-full lg:pl-72">
+        <div id="app-scroll">
+          {/* Mobile top spacer for header bar */}
+          <div className="lg:hidden h-14" />
+
+          <div className="max-w-4xl mx-auto px-5 sm:px-6 py-6 sm:py-8 pb-tab-safe lg:pb-8">
+            <PageTransition>{children}</PageTransition>
+          </div>
         </div>
       </main>
+
+      {/* Mobile bottom tab bar */}
+      <BottomTabBar />
+
       <WelcomeTour />
     </div>
   );

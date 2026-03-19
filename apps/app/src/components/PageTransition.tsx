@@ -1,19 +1,31 @@
 "use client";
 
-import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
+import { useRef, useEffect, useState } from "react";
 
+/**
+ * Lightweight page transition that fades content in on route change.
+ * Uses CSS animations instead of Framer Motion key-based unmount/remount
+ * to prevent layout flashes and blank frames during navigation.
+ */
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const prevPathRef = useRef(pathname);
+  const [animKey, setAnimKey] = useState(0);
+
+  useEffect(() => {
+    if (prevPathRef.current !== pathname) {
+      prevPathRef.current = pathname;
+      setAnimKey((k) => k + 1);
+      // Scroll to top on route change
+      const scroller = document.getElementById("app-scroll");
+      if (scroller) scroller.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [pathname]);
 
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <div key={animKey} className="animate-fade-in">
       {children}
-    </motion.div>
+    </div>
   );
 }
