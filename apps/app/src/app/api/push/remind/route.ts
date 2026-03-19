@@ -3,14 +3,11 @@ import webpush from "web-push";
 import { NextResponse } from "next/server";
 import { allLessons } from "@/data/course";
 
+// Force Node.js runtime (web-push uses native crypto)
+export const runtime = "nodejs";
+
 // Authorize cron calls with a shared secret
 const CRON_SECRET = process.env.CRON_SECRET;
-
-const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY!;
-const VAPID_EMAIL = process.env.VAPID_EMAIL ?? "mailto:hello@lumephoto.co";
-
-webpush.setVapidDetails(VAPID_EMAIL, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 
 // Reminder messages for different engagement levels
 const MESSAGES = {
@@ -51,12 +48,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+  const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
+  const VAPID_EMAIL = process.env.VAPID_EMAIL ?? "mailto:hello@lumephoto.co";
+
   if (!VAPID_PUBLIC_KEY || !VAPID_PRIVATE_KEY) {
     return NextResponse.json(
       { error: "VAPID keys not configured" },
       { status: 500 }
     );
   }
+
+  webpush.setVapidDetails(VAPID_EMAIL, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 
   // Use service-role client to read all users' data
   const supabase = createServerClient(
