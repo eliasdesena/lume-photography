@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@lume/supabase/client";
 
 interface LessonPlayerProps {
@@ -19,8 +20,8 @@ export default function LessonPlayer({
   isCompleted: initialCompleted,
 }: LessonPlayerProps) {
   const [completed, setCompleted] = useState(initialCompleted);
-  const [saving, setSaving] = useState(false);
   const lastSaveRef = useRef(0);
+  const router = useRouter();
 
   const supabase = createClient();
 
@@ -45,23 +46,26 @@ export default function LessonPlayer({
     [lessonId, completed, supabase]
   );
 
-  async function handleToggleComplete() {
-    setSaving(true);
+  function handleToggleComplete() {
     const newState = !completed;
     setCompleted(newState);
 
-    const userId = (await supabase.auth.getUser()).data.user!.id;
-    await supabase.from("course_progress").upsert(
-      {
-        user_id: userId,
-        lesson_id: lessonId,
-        progress_seconds: 0,
-        completed: newState,
-        updated_at: new Date().toISOString(),
-      },
-      { onConflict: "user_id,lesson_id" }
-    );
-    setSaving(false);
+    // Fire-and-forget: optimistic UI, save in background
+    (async () => {
+      const userId = (await supabase.auth.getUser()).data.user!.id;
+      await supabase.from("course_progress").upsert(
+        {
+          user_id: userId,
+          lesson_id: lessonId,
+          progress_seconds: 0,
+          completed: newState,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "user_id,lesson_id" }
+      );
+      // Revalidate server data so lessons overview reflects the change
+      router.refresh();
+    })();
   }
 
   // Placeholder if no Mux video yet
@@ -85,14 +89,13 @@ export default function LessonPlayer({
           </p>
           <button
             onClick={handleToggleComplete}
-            disabled={saving}
-            className={`mt-4 px-4 py-2 text-xs font-body font-medium transition-colors disabled:opacity-50 rounded-sm press-scale ${
+            className={`mt-4 px-4 py-2 text-xs font-body font-medium transition-colors rounded-sm press-scale ${
               completed
                 ? "text-gold hover:text-muted"
                 : "bg-gold/10 text-gold border border-gold/20 hover:bg-gold/20"
             }`}
           >
-            {saving ? "Saving..." : completed ? "✓ Completed — undo?" : "Mark as complete"}
+            {completed ? "✓ Mark as incomplete" : "Mark as completed"}
           </button>
         </div>
       </div>
@@ -125,14 +128,13 @@ export default function LessonPlayer({
 
       <button
         onClick={handleToggleComplete}
-        disabled={saving}
         className={`text-xs font-body transition-colors press-scale ${
           completed
             ? "text-gold hover:text-muted"
             : "text-muted/50 hover:text-gold"
         }`}
       >
-        {saving ? "Saving..." : completed ? "✓ Lesson complete — undo?" : "Mark as complete"}
+        {completed ? "✓ Mark as incomplete" : "Mark as completed"}
       </button>
     </div>
   );

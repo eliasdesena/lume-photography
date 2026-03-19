@@ -42,7 +42,7 @@ const nextConfig = {
             "img-src 'self' data: https://image.mux.com",
             "media-src 'self' https://stream.mux.com",
             "frame-src 'self'",
-            "connect-src 'self' https://*.supabase.co https://stream.mux.com",
+            "connect-src 'self' https://*.supabase.co https://stream.mux.com https://*.push.services.mozilla.com https://fcm.googleapis.com https://*.notify.windows.com",
           ].join("; "),
         },
       ],

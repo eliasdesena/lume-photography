@@ -60,7 +60,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const lessonNumber = currentIndex + 1;
 
   return (
-    <div className="space-y-6 pb-tab-safe lg:pb-0">
+    <div className="space-y-6">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2">
         <Link

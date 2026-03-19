@@ -56,3 +56,46 @@ const serwist = new Serwist({
 });
 
 serwist.addEventListeners();
+
+// ── Push Notifications ──────────────────────────────────────
+self.addEventListener("push", (event) => {
+  if (!event.data) return;
+
+  const data = event.data.json() as {
+    title?: string;
+    body?: string;
+    url?: string;
+    tag?: string;
+  };
+
+  const title = data.title ?? "LUMÉ";
+  const options: NotificationOptions = {
+    body: data.body ?? "Time to continue your photography journey.",
+    icon: "/icons/icon-192.png",
+    badge: "/icons/icon-192.png",
+    tag: data.tag ?? "lume-reminder",
+    data: { url: data.url ?? "/" },
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const url = (event.notification.data as { url?: string })?.url ?? "/";
+
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      // Focus existing window if open
+      for (const client of clients) {
+        if (client.url.includes(self.location.origin) && "focus" in client) {
+          client.focus();
+          if ("navigate" in client) (client as WindowClient).navigate(url);
+          return;
+        }
+      }
+      // Otherwise open new window
+      return self.clients.openWindow(url);
+    })
+  );
+});

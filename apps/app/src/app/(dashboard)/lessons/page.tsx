@@ -62,7 +62,7 @@ export default async function LessonsPage() {
                       key={lesson.id}
                       href={`/lessons/${lesson.slug}`}
                       prefetch={true}
-                      className="flex items-center gap-3 bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group"
+                      className="flex items-center gap-3 bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group overflow-hidden"
                     >
                       {/* Status indicator */}
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${

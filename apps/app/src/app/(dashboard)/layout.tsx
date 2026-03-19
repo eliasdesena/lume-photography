@@ -3,6 +3,7 @@ import { courseModules } from "@/data/course";
 import DashboardSidebar from "@/components/DashboardSidebar";
 import BottomTabBar from "@/components/BottomTabBar";
 import WelcomeTour from "@/components/WelcomeTour";
+import NotificationPrompt from "@/components/NotificationPrompt";
 import PageTransition from "@/components/PageTransition";
 
 export default async function DashboardLayout({
@@ -60,7 +61,7 @@ export default async function DashboardLayout({
           {/* Mobile top spacer for header bar (h-14 + safe-area-inset-top for PWA) */}
           <div className="lg:hidden" style={{ height: "calc(3.5rem + env(safe-area-inset-top, 0px))" }} />
 
-          <div className="max-w-4xl mx-auto px-5 sm:px-6 py-6 sm:py-8 pb-tab-safe lg:pb-8 overflow-x-hidden">
+          <div className="max-w-4xl mx-auto px-5 sm:px-6 pt-6 sm:pt-8 pb-tab-safe lg:pb-8 overflow-x-hidden">
             <PageTransition>{children}</PageTransition>
           </div>
         </div>
@@ -70,6 +71,7 @@ export default async function DashboardLayout({
       <BottomTabBar />
 
       <WelcomeTour />
+      <NotificationPrompt />
     </div>
   );
 }
