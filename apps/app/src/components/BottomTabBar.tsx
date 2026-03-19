@@ -56,9 +56,7 @@ export default function BottomTabBar() {
   }
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur-xl border-t border-hairline/40"
-      style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
-    >
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-obsidian/95 backdrop-blur-xl border-t border-hairline/40 pt-2">
       <div className="flex items-center justify-around h-[56px]">
         {tabs.map((tab) => {
           const active = isActive(tab);
