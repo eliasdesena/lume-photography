@@ -253,6 +253,7 @@ export default function MultiStepCheckout() {
   const [existingAccount, setExistingAccount] = useState<{
     hasEntitlement: boolean;
     hasPassword: boolean;
+    magicLinkSent?: boolean;
   } | null>(null);
 
   // Step 1 → 2: validate name
@@ -338,6 +339,7 @@ export default function MultiStepCheckout() {
           setExistingAccount({
             hasEntitlement: true,
             hasPassword: checkData.hasPassword,
+            magicLinkSent: checkData.magicLinkSent,
           });
           setLoading(false);
           return;
@@ -466,7 +468,9 @@ export default function MultiStepCheckout() {
                   <p className="text-muted text-xs font-body leading-relaxed">
                     {existingAccount.hasPassword
                       ? "Sign in with your email and password to access your course."
-                      : "A sign-in link has been sent to your email. Check your inbox to access your course."}
+                      : existingAccount.magicLinkSent
+                        ? "We just sent a sign-in link to your email. Check your inbox to access your course."
+                        : "Head to the sign-in page to request a magic link for your account."}
                   </p>
                   <a
                     href={`${process.env.NEXT_PUBLIC_APP_URL || "https://app.lumephoto.co"}/login`}

@@ -59,6 +59,9 @@ export default function SuccessContent({ accessLink }: SuccessContentProps) {
           transition={{ delay: 0.65, duration: 0.6 }}
         >
           Welcome to LUMÉ. Your access is ready.
+          <span className="block text-sm text-muted/80 mt-2">
+            We also sent a sign-in link to your email.
+          </span>
         </motion.p>
 
         <motion.div

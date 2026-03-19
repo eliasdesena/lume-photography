@@ -83,7 +83,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
       );
     }
 
-    // Generate magic link for instant access
+    // Generate magic link for instant access (clickable link on page)
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://app.lumephoto.co";
     const { data: linkData } = await supabase.auth.admin.generateLink({
       type: "magiclink",
@@ -92,6 +92,24 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
     });
 
     accessLink = linkData?.properties?.action_link ?? null;
+
+    // Also send a magic link email so the user has it in their inbox
+    // (admin.generateLink only generates the URL, doesn't send email)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    if (supabaseUrl && supabaseAnonKey) {
+      await fetch(`${supabaseUrl}/auth/v1/otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: supabaseAnonKey,
+        },
+        body: JSON.stringify({
+          email: customerEmail,
+          create_user: false,
+        }),
+      });
+    }
   }
 
   return <SuccessContent accessLink={accessLink} />;
