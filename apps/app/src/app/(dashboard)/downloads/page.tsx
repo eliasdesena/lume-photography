@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function DownloadsPage() {
   return (
-    <div className="space-y-8 pt-2 pb-tab-safe lg:pb-0">
+    <div className="space-y-8 pt-2">
       <div>
         <h1 className="font-display text-2xl sm:text-3xl mb-2">Downloads</h1>
         <p className="font-body font-light text-muted text-sm">

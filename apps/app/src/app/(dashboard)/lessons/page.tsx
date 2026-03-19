@@ -21,7 +21,7 @@ export default async function LessonsPage() {
   const completedCount = completedIds.size;
 
   return (
-    <div className="space-y-6 pt-2 pb-tab-safe">
+    <div className="space-y-6 pt-2">
       <div>
         <h1 className="font-display text-2xl sm:text-3xl mb-1">Lessons</h1>
         <p className="font-body font-light text-muted text-sm">
@@ -46,7 +46,7 @@ export default async function LessonsPage() {
                   {modCompleted ? "✓" : mod.number}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <h2 className="font-display text-base text-cream truncate">{mod.title}</h2>
+                  <h2 className="font-display text-base text-cream text-fade-right">{mod.title}</h2>
                   <p className="text-[11px] text-muted font-body">
                     {modProgress}/{mod.lessons.length} lessons
                   </p>
@@ -82,7 +82,7 @@ export default async function LessonsPage() {
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <p className={`font-body text-sm truncate ${
+                        <p className={`font-body text-sm text-fade-right ${
                           isComplete ? "text-muted" : "text-cream"
                         } group-hover:text-gold transition-colors`}>
                           {lesson.title}

@@ -36,7 +36,7 @@ export default async function DashboardPage() {
   const progressPct = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
   return (
-    <div className="space-y-8 sm:space-y-10 pt-1 pb-tab-safe lg:pb-0">
+    <div className="space-y-8 sm:space-y-10 pt-1">
       {/* Welcome */}
       <div>
         <h1 className="font-display text-2xl sm:text-3xl mb-2">

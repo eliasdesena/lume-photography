@@ -135,7 +135,7 @@ export default function SettingsClient({
   );
 
   return (
-    <div className="max-w-2xl pb-tab-safe lg:pb-0">
+    <div className="max-w-2xl">
       {/* Header */}
       <div className="mb-8">
         <Link
