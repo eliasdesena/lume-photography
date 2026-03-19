@@ -55,7 +55,7 @@ export default function StickyNav() {
             className="inline-flex items-center gap-1.5 bg-gold hover:bg-cream text-obsidian font-body font-semibold text-[11px] uppercase tracking-[0.06em] px-4 rounded-full transition-colors duration-200"
           >
             Get access
-            <span className="hidden sm:inline"> — $97</span>
+            <span className="hidden sm:inline"> — $47</span>
           </a>
 
         </div>

@@ -127,7 +127,7 @@ export default function CheckoutForm() {
           loading={loading}
           disabled={!stripe || !elements}
         >
-          Pay $97.00 →
+          Pay $47.00 →
         </Button>
       </div>
 

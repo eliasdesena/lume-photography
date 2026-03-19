@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       );
 
       const couponInfo = coupon_code
-        ? ` (coupon: ${coupon_code}, saved: $${(Number(discount_amount || 0) / 100).toFixed(2)}, original: $${(Number(original_amount || 9700) / 100).toFixed(2)})`
+        ? ` (coupon: ${coupon_code}, saved: $${(Number(discount_amount || 0) / 100).toFixed(2)}, original: $${(Number(original_amount || 4700) / 100).toFixed(2)})`
         : "";
       console.log(`✓ Payment processed for ${customer_email} — user ${userId}${couponInfo}`);
     } catch (err) {

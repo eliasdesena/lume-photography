@@ -102,7 +102,7 @@ export default function Modules() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="mt-14 sm:mt-16 text-center">
-          <Button href="/checkout">Get instant access — $97</Button>
+          <Button href="/checkout">Get instant access — $47</Button>
         </motion.div>
       </motion.div>
     </section>

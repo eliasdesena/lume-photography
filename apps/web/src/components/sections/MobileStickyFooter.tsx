@@ -44,7 +44,7 @@ export default function MobileStickyFooter() {
           className="flex items-center justify-between w-full bg-gold hover:bg-cream text-obsidian font-body font-medium text-xs uppercase tracking-[0.04em] px-5 py-3.5 transition-colors duration-200"
         >
           <span>Get instant access</span>
-          <span className="font-body font-medium text-xs">$97 →</span>
+          <span className="font-body font-medium text-xs">$47 →</span>
         </a>
         <p className="text-center text-[10px] text-muted/40 font-body mt-2 tracking-wide">
           30-day money-back guarantee · No questions asked

@@ -52,7 +52,7 @@ export default function Pricing() {
           >
             <div className="relative bg-obsidian rounded-sm p-8 sm:p-10 text-center ring-1 ring-gold/10 shadow-[0_0_80px_-20px_rgba(200,164,90,0.08)]">
               <p className="font-display text-[80px] sm:text-[96px] leading-none text-cream mb-6">
-                $97
+                $47
               </p>
               <p className="text-[11px] text-muted/50 font-body uppercase tracking-[0.08em] mb-10">
                 One-time payment · Lifetime access · Instant delivery

@@ -12,7 +12,7 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ""
 );
 
-const BASE_PRICE = 9700; // cents
+const BASE_PRICE = 4700; // cents
 
 // ── Brand tokens for Stripe Elements ──
 const surface2 = "#252220";

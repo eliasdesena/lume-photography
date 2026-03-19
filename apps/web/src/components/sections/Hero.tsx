@@ -69,7 +69,7 @@ export default function Hero() {
             animate="visible"
             custom={3}
           >
-            <Button href="/checkout">Get instant access — $97</Button>
+            <Button href="/checkout">Get instant access — $47</Button>
           </motion.div>
 
           {/* Trust strip */}

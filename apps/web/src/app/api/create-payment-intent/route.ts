@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import Stripe from "stripe";
 
-const BASE_PRICE = 9700; // $97.00 in cents
+const BASE_PRICE = 4700; // $47.00 in cents
 
 function getStripe() {
   const key = process.env.STRIPE_SECRET_KEY;

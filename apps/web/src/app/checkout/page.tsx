@@ -41,7 +41,7 @@ export default function CheckoutPage() {
           <h1 className="font-display text-3xl sm:text-4xl text-cream mb-2">
             iPhone Photography Mastery
           </h1>
-          <p className="font-display text-5xl text-cream mb-8">$97</p>
+          <p className="font-display text-5xl text-cream mb-8">$47</p>
 
           <ul className="space-y-3 mb-10">
             {includes.map((item) => (
