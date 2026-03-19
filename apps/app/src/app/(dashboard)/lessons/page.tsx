@@ -21,7 +21,7 @@ export default async function LessonsPage() {
   const completedCount = completedIds.size;
 
   return (
-    <div className="space-y-6 pt-2">
+    <div className="space-y-6 pt-2 min-w-0 overflow-hidden">
       <div>
         <h1 className="font-display text-2xl sm:text-3xl mb-1">Lessons</h1>
         <p className="font-body font-light text-muted text-sm">
@@ -54,7 +54,7 @@ export default async function LessonsPage() {
               </div>
 
               {/* Lessons */}
-              <div className="space-y-1 ml-1">
+              <div className="space-y-1 ml-1 min-w-0">
                 {mod.lessons.map((lesson) => {
                   const isComplete = completedIds.has(lesson.id);
                   return (
@@ -62,7 +62,7 @@ export default async function LessonsPage() {
                       key={lesson.id}
                       href={`/lessons/${lesson.slug}`}
                       prefetch={true}
-                      className="flex items-center gap-3 bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group overflow-hidden"
+                      className="flex items-center gap-3 bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group overflow-hidden min-w-0 w-full"
                     >
                       {/* Status indicator */}
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
