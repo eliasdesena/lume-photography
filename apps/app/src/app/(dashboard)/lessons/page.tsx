@@ -81,7 +81,7 @@ export default async function LessonsPage() {
                         )}
                       </div>
 
-                      <div className="flex-1 min-w-0">
+                      <div className="flex-1 min-w-0 overflow-hidden">
                         <p className={`font-body text-sm text-fade-right ${
                           isComplete ? "text-muted" : "text-cream"
                         } group-hover:text-gold transition-colors`}>
