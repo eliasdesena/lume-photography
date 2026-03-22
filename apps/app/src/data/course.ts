@@ -18,7 +18,7 @@ export const courseModules: CourseModule[] = [
         slug: "camera-app-overview",
         title: "The Camera App — A Deep Dive",
         duration: "12:30",
-        muxPlaybackId: "PLACEHOLDER",
+        muxPlaybackId: "GMpf9zZjLctUI00twCAjrp9ZvSF8rDy4zDvK7UwTIGZs",
       },
       {
         id: "les-01-02",
