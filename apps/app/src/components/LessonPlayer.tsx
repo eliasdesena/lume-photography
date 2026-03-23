@@ -3,6 +3,7 @@
 import { useCallback, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@lume/supabase/client";
+import MuxPlayer from "@mux/mux-player-react";
 
 interface LessonPlayerProps {
   lessonId: string;
@@ -105,15 +106,14 @@ export default function LessonPlayer({
   return (
     <div className="space-y-3">
       <div className="aspect-video bg-surface border border-hairline/40 rounded-sm overflow-hidden">
-        {/* @ts-expect-error — mux-player web component */}
-        <mux-player
-          playback-id={playbackId}
-          playback-token={playbackToken ?? undefined}
-          metadata-video-title={lessonId}
-          accent-color="#C8A45A"
-          start-time={initialProgress}
-          style={{ width: "100%", height: "100%", "--controls": "none" } as React.CSSProperties}
-          onTimeUpdate={(e: Event) => {
+        <MuxPlayer
+          playbackId={playbackId}
+          tokens={playbackToken ? { playback: playbackToken } : undefined}
+          metadata={{ video_title: lessonId }}
+          accentColor="#C8A45A"
+          startTime={initialProgress}
+          style={{ width: "100%", height: "100%" }}
+          onTimeUpdate={(e) => {
             const target = e.target as HTMLMediaElement;
             if (target?.currentTime) {
               saveProgress(target.currentTime, false);
