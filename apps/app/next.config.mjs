@@ -48,7 +48,7 @@ const nextConfig = {
             "media-src 'self' https://stream.mux.com https://*.mux.com blob:",
             "frame-src 'self'",
             "worker-src 'self' blob:",
-            "connect-src 'self' https://*.supabase.co https://*.mux.com https://*.push.services.mozilla.com https://fcm.googleapis.com https://*.notify.windows.com",
+            "connect-src 'self' https://*.supabase.co https://*.mux.com https://inferred.litix.io https://*.push.services.mozilla.com https://fcm.googleapis.com https://*.notify.windows.com",
           ].join("; "),
         },
       ],

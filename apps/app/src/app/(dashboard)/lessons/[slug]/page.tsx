@@ -28,21 +28,24 @@ export default async function LessonPage({ params }: LessonPageProps) {
     .eq("lesson_id", lesson.id)
     .single();
 
-  // Sign playback token directly (server component — no self-fetch needed)
+  // Sign playback + thumbnail tokens (server component — no self-fetch needed)
   let playbackToken: string | null = null;
+  let thumbnailToken: string | null = null;
   if (lesson.muxPlaybackId !== "PLACEHOLDER") {
     const signingKeyId = process.env.MUX_SIGNING_KEY_ID;
     const signingKeyPrivate = process.env.MUX_SIGNING_KEY_PRIVATE;
     if (signingKeyId && signingKeyPrivate) {
+      const key = Buffer.from(signingKeyPrivate, "base64");
+      const exp = Math.floor(Date.now() / 1000) + 60 * 60;
       try {
         playbackToken = jwt.sign(
-          {
-            sub: lesson.muxPlaybackId,
-            aud: "v",
-            exp: Math.floor(Date.now() / 1000) + 60 * 60,
-            kid: signingKeyId,
-          },
-          Buffer.from(signingKeyPrivate, "base64"),
+          { sub: lesson.muxPlaybackId, aud: "v", exp, kid: signingKeyId },
+          key,
+          { algorithm: "RS256" }
+        );
+        thumbnailToken = jwt.sign(
+          { sub: lesson.muxPlaybackId, aud: "t", exp, kid: signingKeyId },
+          key,
           { algorithm: "RS256" }
         );
       } catch {
@@ -83,6 +86,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         lessonId={lesson.id}
         playbackId={lesson.muxPlaybackId}
         playbackToken={playbackToken}
+        thumbnailToken={thumbnailToken}
         initialProgress={progress?.progress_seconds ?? 0}
         isCompleted={progress?.completed ?? false}
       />

@@ -9,6 +9,7 @@ interface LessonPlayerProps {
   lessonId: string;
   playbackId: string;
   playbackToken: string | null;
+  thumbnailToken: string | null;
   initialProgress: number;
   isCompleted: boolean;
 }
@@ -17,6 +18,7 @@ export default function LessonPlayer({
   lessonId,
   playbackId,
   playbackToken,
+  thumbnailToken,
   initialProgress,
   isCompleted: initialCompleted,
 }: LessonPlayerProps) {
@@ -108,7 +110,7 @@ export default function LessonPlayer({
       <div className="aspect-video bg-surface border border-hairline/40 rounded-sm overflow-hidden">
         <MuxPlayer
           playbackId={playbackId}
-          tokens={playbackToken ? { playback: playbackToken } : undefined}
+          tokens={playbackToken ? { playback: playbackToken, thumbnail: thumbnailToken ?? undefined } : undefined}
           metadata={{ video_title: lessonId }}
           accentColor="#C8A45A"
           startTime={initialProgress}
