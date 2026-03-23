@@ -3,6 +3,7 @@ import { allLessons, courseModules } from "@/data/course";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import LessonPlayer from "@/components/LessonPlayer";
+import jwt from "jsonwebtoken";
 
 interface LessonPageProps {
   params: Promise<{ slug: string }>;
@@ -27,24 +28,26 @@ export default async function LessonPage({ params }: LessonPageProps) {
     .eq("lesson_id", lesson.id)
     .single();
 
-  // Get signed playback token
+  // Sign playback token directly (server component — no self-fetch needed)
   let playbackToken: string | null = null;
   if (lesson.muxPlaybackId !== "PLACEHOLDER") {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3001"}/api/mux/sign`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ playbackId: lesson.muxPlaybackId }),
-        }
-      );
-      if (res.ok) {
-        const data = await res.json();
-        playbackToken = data.token;
+    const signingKeyId = process.env.MUX_SIGNING_KEY_ID;
+    const signingKeyPrivate = process.env.MUX_SIGNING_KEY_PRIVATE;
+    if (signingKeyId && signingKeyPrivate) {
+      try {
+        playbackToken = jwt.sign(
+          {
+            sub: lesson.muxPlaybackId,
+            aud: "v",
+            exp: Math.floor(Date.now() / 1000) + 60 * 60,
+            kid: signingKeyId,
+          },
+          Buffer.from(signingKeyPrivate, "base64"),
+          { algorithm: "RS256" }
+        );
+      } catch {
+        // Token signing failed — player will show error
       }
-    } catch {
-      // Token signing failed — will show fallback
     }
   }
 
