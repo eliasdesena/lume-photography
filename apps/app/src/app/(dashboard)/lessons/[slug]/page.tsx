@@ -128,7 +128,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
         {prevLesson && (
           <Link
             href={`/lessons/${prevLesson.slug}`}
-            prefetch={true}
+            prefetch={false}
             className="flex items-center bg-surface/50 border border-hairline/40 rounded-sm px-4 py-3 press-scale hover:border-gold/20 transition-colors group"
           >
             <span className="text-muted/40 shrink-0 mr-3">←</span>

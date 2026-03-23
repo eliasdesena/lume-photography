@@ -64,7 +64,7 @@ export default function BottomTabBar() {
             <Link
               key={tab.href}
               href={tab.href}
-              prefetch={true}
+              prefetch={false}
               className={`flex flex-col items-center justify-center gap-0.5 w-full h-full press-scale transition-colors ${
                 active ? "text-gold" : "text-muted/60"
               }`}

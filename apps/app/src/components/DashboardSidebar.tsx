@@ -67,7 +67,7 @@ export default function DashboardSidebar({
         <nav className="flex-1 overflow-y-auto px-3">
           <Link
             href="/"
-            prefetch={true}
+            prefetch={false}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-body transition-colors mb-1 ${
               pathname === "/" ? "bg-surface text-cream" : "text-muted hover:text-cream hover:bg-surface/50"
             }`}
@@ -81,7 +81,7 @@ export default function DashboardSidebar({
 
           <Link
             href="/lessons"
-            prefetch={true}
+            prefetch={false}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-body transition-colors mb-1 ${
               pathname === "/lessons" ? "bg-surface text-cream" : "text-muted hover:text-cream hover:bg-surface/50"
             }`}
@@ -94,7 +94,7 @@ export default function DashboardSidebar({
 
           <Link
             href="/downloads"
-            prefetch={true}
+            prefetch={false}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-body transition-colors mb-4 ${
               pathname === "/downloads" ? "bg-surface text-cream" : "text-muted hover:text-cream hover:bg-surface/50"
             }`}
@@ -134,7 +134,7 @@ export default function DashboardSidebar({
                     <Link
                       key={lesson.id}
                       href={`/lessons/${lesson.slug}`}
-                      prefetch={true}
+                      prefetch={false}
                       className={`flex items-center gap-2 pl-9 pr-3 py-1.5 text-xs font-body transition-colors rounded-sm overflow-hidden ${
                         isActive
                           ? "bg-surface text-cream"

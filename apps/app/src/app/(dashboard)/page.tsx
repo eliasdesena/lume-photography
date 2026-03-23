@@ -109,7 +109,6 @@ export default async function DashboardPage() {
               <Link
                 key={mod.id}
                 href={`/lessons/${mod.lessons[0].slug}`}
-                prefetch={true}
                 className="group bg-surface border border-hairline rounded-sm p-4 sm:p-5 hover:border-gold/20 transition-colors press-scale"
               >
                 <div className="flex items-start justify-between mb-3">
@@ -141,7 +140,6 @@ export default async function DashboardPage() {
       {/* Downloads quick link */}
       <Link
         href="/downloads"
-        prefetch={true}
         className="flex items-center gap-4 bg-surface border border-hairline rounded-sm p-4 sm:p-5 hover:border-gold/20 transition-colors group press-scale"
       >
         <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0">

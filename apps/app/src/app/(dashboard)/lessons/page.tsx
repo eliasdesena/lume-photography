@@ -61,7 +61,7 @@ export default async function LessonsPage() {
                     <Link
                       key={lesson.id}
                       href={`/lessons/${lesson.slug}`}
-                      prefetch={true}
+                      prefetch={false}
                       className="flex items-center gap-3 bg-surface border border-hairline/60 rounded-sm px-4 py-3.5 press-scale hover:border-gold/20 transition-colors group overflow-hidden min-w-0 w-full"
                     >
                       {/* Status indicator */}
